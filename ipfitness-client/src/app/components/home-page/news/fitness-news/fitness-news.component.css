@@ -1,0 +1,13 @@
+.full-spread {
+  --color: #1b2735;
+  box-shadow: 0 0 0 100vmax var(--color);
+  clip-path: inset(0 -100vmax);
+  background-color: var(--color);
+}
+
+
+.overflow-link {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

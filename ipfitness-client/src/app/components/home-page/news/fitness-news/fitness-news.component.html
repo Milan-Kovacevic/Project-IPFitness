@@ -1,0 +1,81 @@
+<div class="surface-section px-0 md:px-2 lg:px-4">
+  @if(isLoading){
+  <div
+    class="flex w-full flex-wrap align-items-start mb-8 xl:mb-6 xl:mt-0 px-3"
+  >
+    <div class="w-10 mt-3 mb-6">
+      <p-skeleton width="10rem" styleClass="mb-1"></p-skeleton>
+      <p-skeleton height="2rem" width="75%" styleClass="mb-3"></p-skeleton>
+      <p-skeleton width="90%" height="6rem"></p-skeleton>
+      <p-skeleton height="1rem" width="95%" styleClass="mt-4"></p-skeleton>
+    </div>
+    <div class="w-full grid nogutter -mx-1">
+      <app-news-item-skeleton class="col-12 lg:col-4"></app-news-item-skeleton>
+      <app-news-item-skeleton class="col-12 lg:col-4"></app-news-item-skeleton>
+      <app-news-item-skeleton class="col-12 lg:col-4"></app-news-item-skeleton>
+      <app-news-item-skeleton class="col-12 lg:col-4"></app-news-item-skeleton>
+      <app-news-item-skeleton class="col-12 lg:col-4"></app-news-item-skeleton>
+      <app-news-item-skeleton class="col-12 lg:col-4"></app-news-item-skeleton>
+    </div>
+  </div>
+
+  } @else {
+  <div
+    class="full-spread xl:py-7 py-8 flex flex-wrap align-items-start mb-6 xl:mb-8"
+  >
+    <div class="mb-6 w-full">
+      <h2 class="font-medium text-3xl text-50 mb-2 mt-0">Recent Articles</h2>
+      <p class="text-400 text-lg line-height-2 mt-0 mb-0">
+        Read the latest news and events from the world of fitness.
+      </p>
+    </div>
+    <div class="w-full h-full xl:w-4 mr-0 xl:mr-6 mb-4 xl:mb-0">
+      <img
+        src="assets/article-heading-img.png"
+        alt="Image"
+        class="w-full border-200 border-1 opacity-90 border-round-2xl overflow-hidden"
+      />
+    </div>
+    @if(!hasErrors){
+    <div class="w-full h-full xl:w-7 mt-3">
+      <div class="flex align-items-center">
+        <img
+          [src]="news?.title ?? 'assets/404-rocket.png'"
+          width="38"
+          height="38"
+          class="mr-3 flex-shrink-0"
+        /><span class="text-100 font-medium text-lg white-space-nowrap"
+          >Publisher Link</span
+        ><span class="text-300 font-medium text-lg mx-2">|</span
+        ><a
+          [href]="news?.link"
+          target="_blank"
+          class="overflow-link text-300 font-medium text-base white-space-nowrap"
+          >{{ news?.link }}</a
+        >
+      </div>
+      <div class="text-0 font-bold text-2xl mt-4">{{ news?.title }}</div>
+      <p class="line-height-3 text-300 my-4">
+        {{ news?.description }}
+      </p>
+      <div class="flex align-items-center">
+        <span class="text-200 text-sm font-medium">{{ news?.copyright }}</span
+        ><span class="text-600 font-medium text-sm mx-3">|</span
+        ><span
+          class="bg-blue-200 text-blue-900 text-sm block py-1 px-2 border-round mr-3"
+          >Fitness</span
+        >
+      </div>
+    </div>
+    }
+  </div>
+  <div class="grid nogutter 0">
+    @for(newsItem of news?.items; track newsItem){
+    <app-news-item
+      [newsItem]="newsItem"
+      class="col-12 lg:col-4"
+    ></app-news-item>
+    }
+  </div>
+  }
+</div>

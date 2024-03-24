@@ -1,0 +1,181 @@
+<nav
+  class="bg-primary-900 px-5 top-0 left-0 w-full flex justify-content-between relative xl:sticky z-4"
+>
+  <div class="background">
+    <div class="star"></div>
+    <div class="meteor-1"></div>
+    <div class="meteor-2"></div>
+    <div class="meteor-3"></div>
+    <div class="meteor-4"></div>
+    <div class="meteor-5"></div>
+    <div class="meteor-6"></div>
+    <div class="meteor-7"></div>
+    <div class="meteor-8"></div>
+    <div class="meteor-9"></div>
+    <div class="meteor-10"></div>
+    <div class="meteor-11"></div>
+    <div class="meteor-12"></div>
+    <div class="meteor-13"></div>
+    <div class="meteor-14"></div>
+    <div class="meteor-15"></div>
+  </div>
+  <div
+    class="my-2 xl:mr-5 flex flex-column align-items-center justify-content-center"
+  >
+    <span class="material-symbols-outlined text-50 text-5xl"> exercise </span>
+    <p class="p-0 m-0 text-2xl font-medium text-50">
+      <strong>IP</strong>Fitness
+    </p>
+  </div>
+  <a
+    pRipple
+    (click)="onMenuClick()"
+    class="p-ripple p-element cursor-pointer block xl:hidden align-self-center text-700"
+    ><i class="pi pi-bars text-4xl text-300"></i><span class="p-ink"></span
+  ></a>
+  <div
+    [ngClass]="{
+      'nav-items-flex hidden nav-items xl:flex-grow-1 xl:justify-content-between z-5 absolute xl:static w-full left-0 top-100 z-1 shadow-2':
+        !isMenuOpened,
+      'animation-duration-200 nav-items flex-grow-1 justify-content-between z-5 xl:flex absolute xl:static w-full left-0 top-100 z-1 shadow-2':
+        isMenuOpened
+    }"
+  >
+    <ul
+      class="list-none select-none p-0 m-0 flex flex-column xl:flex-row xl:gap-2"
+    >
+      <li class="xl:flex xl:align-items-end">
+        <a
+          pRipple
+          class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem px-4 font-medium cursor-pointer transition-colors transition-duration-1500 text-50"
+          routerLinkActive="surface-0 text-900 fadeindown"
+          routerLink="/home"
+          ><i class="pi pi-home mr-2"></i><span>Home</span></a
+        >
+      </li>
+      <li class="xl:flex xl:align-items-end">
+        <a
+          pRipple
+          routerLinkActive="surface-0 text-900 fadeindown"
+          routerLink="/programs"
+          class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem px-4 font-medium cursor-pointer transition-colors transition-duration-1500 text-50"
+          ><i class="pi pi-tags mr-2"></i><span>Programs</span>
+        </a>
+      </li>
+
+      @if(isActivated){
+      <li class="xl:flex xl:align-items-end">
+        <a
+          routerLinkActive="surface-0 text-900 fadeindown"
+          routerLink="/activities"
+          class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem px-4 font-medium cursor-pointer transition-colors transition-duration-1500 text-50"
+          ><i class="pi pi-file-edit mr-2"></i><span>Activities</span>
+        </a>
+      </li>
+      <li class="xl:flex xl:align-items-end">
+        <a
+          disabled="true"
+          routerLinkActive="surface-0 text-900 fadeindown"
+          routerLink="/messages"
+          class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem px-4 font-medium cursor-pointer transition-colors transition-duration-1500 text-50"
+          ><i class="pi pi-comments mr-2"></i><span>Messages</span></a
+        >
+      </li>
+      } @else if(!isActivated && isLoggedIn) {
+      <li class="xl:flex xl:align-items-end">
+        <a
+          pTooltip="Account verification required"
+          tooltipStyleClass="text-sm"
+          tooltipPosition="bottom"
+          class="xl:border-round-top-lg flex align-items-center h-3rem px-4 font-normal text-400"
+          ><i class="pi pi-lock mr-2"></i><span>Activities</span>
+        </a>
+      </li>
+      <li class="xl:flex xl:align-items-end">
+        <a
+          pTooltip="Account verification required"
+          tooltipStyleClass="text-sm"
+          tooltipPosition="bottom"
+          class="xl:border-round-top-lg flex align-items-center h-3rem px-4 font-normal text-400"
+          ><i class="pi pi-lock mr-2"></i><span>Messages</span>
+        </a>
+      </li>
+      }
+      @else if(!isActivated && !isLoggedIn) {
+        <li class="xl:flex xl:align-items-end">
+          <a
+            pTooltip="Login is required"
+            tooltipStyleClass="text-sm"
+            tooltipPosition="bottom"
+            class="xl:border-round-top-lg flex align-items-center h-3rem px-4 font-normal text-400"
+            ><i class="pi pi-key mr-2"></i><span>Activities</span>
+          </a>
+        </li>
+        <li class="xl:flex xl:align-items-end">
+          <a
+            pTooltip="Login is required"
+            tooltipStyleClass="text-sm"
+            tooltipPosition="bottom"
+            class="xl:border-round-top-lg flex align-items-center h-3rem px-4 font-normal text-400"
+            ><i class="pi pi-key mr-2"></i><span>Messages</span>
+          </a>
+        </li>
+        }
+
+      <li class="xl:flex xl:align-items-end">
+        <a
+          routerLinkActive="surface-0 text-900 fadeindown"
+          routerLink="/settings"
+          class="hoverable no-underline p-ripple p-element xl:border-round-top-lg flex align-items-center h-3rem px-4 font-medium cursor-pointer transition-colors transition-duration-1500 text-50"
+          ><i class="pi pi-cog mr-2"></i><span>Settings</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="list-none p-0 m-0 flex flex-column xl:flex-row xl:gap-3">
+      @if(!isLoggedIn && !isActivated){
+      <li class="xl:flex xl:p-0 xl:my-0 my-2 xl:px-0 px-4 align-items-center">
+        <a
+          routerLink="/auth/login"
+          class="hoverable no-underline font-medium text-lg xl:mr-2 text-blue-50 cursor-pointer"
+          >Sign In</a
+        >
+      </li>
+      <li class="xl:flex xl:p-0 px-4 xl:my-0 my-2 align-items-center">
+        <a
+          routerLink="/auth/register"
+          class="signup-btn p-button text-lg text-blue-50 xl:text-900 xl:text-base font-medium mr-0 xl:py-2 xl:px-3 cursor-pointer"
+          >Sign Up</a
+        >
+      </li>
+      } @else {
+      <li
+        class="flex xl:flex-row xl:align-items-center flex-column-reverse xl:m-0 m-2 align-items-end"
+      >
+        <a
+          (click)="logout()"
+          class="no-underline font-medium text-lg ml-autu mr-2 xl:mb-0 mb-2 text-blue-50 cursor-pointer"
+          >Log out</a
+        >
+        <div class="relative">
+          <p-avatar
+            [image]="profileImage"
+            pTooltip="{{ userDisplayName }}"
+            tooltipPosition="bottom"
+            tooltipStyleClass="text-sm"
+            size="large"
+            class="w-full block"
+            shape="circle"
+            styleClass="mr-2 xl:mr-0 xl:ml-1 border-2 border-400 circle-image"
+          ></p-avatar>
+          <p-badge
+            styleClass="z-1 absolute p-badge-dot"
+            [severity]="isActivated ? 'success' : 'danger'"
+            [style]="{ right: '1.25rem', bottom: '0' }"
+            value=""
+          ></p-badge>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+</nav>

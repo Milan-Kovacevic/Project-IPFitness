@@ -1,0 +1,110 @@
+<div class="">
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  <p-dialog
+    header="Header"
+    [(visible)]="isOpen"
+    (onHide)="closeModal()"
+    (onShow)="onShowModal()"
+    [modal]="true"
+    [closable]="true"
+    [draggable]="true"
+    [resizable]="false"
+    [style]="{ width: '65rem' }"
+    [breakpoints]="{ '1200px': '80vw', '800px': '90vw', '650px': '95vw' }"
+  >
+    <ng-template pTemplate="header">
+      <div class="w-full px-3 pt-2">
+        <div
+          class="flex flex-column align-items-start justify-content-start gap-2"
+        >
+          <p class="m-0 pt-1 font-medium text-3xl">
+            {{
+              isEdit
+                ? "Edit your Fitness Program"
+                : "Create new Fitness Program"
+            }}
+          </p>
+          <span class="text-base">Please, complete all steps shown below</span>
+        </div>
+      </div>
+    </ng-template>
+    <div
+      [ngClass]="{
+        hidden: isLoading === false,
+        'flex flex-column justify-content-center align-items-center my-7 row-gap-4 px-3 modal-controls':
+          isLoading === true
+      }"
+    >
+      <p-progressSpinner
+        styleClass="w-3rem h-3rem mb-6"
+        strokeWidth="4"
+        animationDuration=".5s"
+      ></p-progressSpinner>
+    </div>
+    <div
+      [ngClass]="{
+        hidden: isLoading === true,
+        'flex flex-column row-gap-4 px-3': isLoading === false
+      }"
+    >
+      <p-steps
+        [model]="modalSteps"
+        [readonly]="false"
+        [activeIndex]="activeIndex"
+        (activeIndexChange)="onActiveIndexChange($event)"
+        styleClass="w-full"
+      ></p-steps>
+      <!-- Basic Information -->
+      <app-basic-information-step
+        #basicInfoStep
+        [ngClass]="{
+          hidden: activeIndex != 0,
+          'modal-controls': activeIndex == 0
+        }"
+        (onLocationChanges)="onLocationChanges($event)"
+        (onValidityChanges)="onBasicInfoFormValidityChanges($event)"
+        [locations]="locations"
+        [difficulties]="difficulties"
+      ></app-basic-information-step>
+      <!-- Category Select -->
+      <app-category-select-step
+        #categorySelectStep
+        [ngClass]="{
+          hidden: activeIndex != 1,
+          'modal-controls': activeIndex == 1
+        }"
+        [categories]="categories"
+      ></app-category-select-step>
+      <!-- Program Pictures -->
+      <app-program-pictures-step
+        #pictureSelectStep
+        [ngClass]="{
+          hidden: activeIndex != 2,
+          'modal-controls': activeIndex == 2
+        }"
+      ></app-program-pictures-step>
+      <!-- Demonstration Videos -->
+      <app-demonstration-videos-step
+        [ngClass]="{
+          hidden: activeIndex != 3,
+          'modal-controls': activeIndex == 3
+        }"
+        #demonstrationVideosStep
+        [isLocationOnline]="isLocationOnline"
+        (onVideoCountChange)="onVideoCountChange($event)"
+      ></app-demonstration-videos-step>
+      <p-button
+        class="align-self-end pr-0"
+        icon="pi pi-check"
+        size="small"
+        [label]="isEdit ? 'Update Program' : 'Create Program'"
+        [disabled]="
+          !isBasicFormValid ||
+          categorySelectStep.categoriesForm.invalid ||
+          (isLocationOnline && !hasVideos)
+        "
+        (onClick)="submitFitnessProgram()"
+      ></p-button>
+    </div>
+  </p-dialog>
+</div>

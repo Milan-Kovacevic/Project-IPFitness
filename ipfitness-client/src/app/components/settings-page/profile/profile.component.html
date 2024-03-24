@@ -1,0 +1,348 @@
+<p-blockUI
+  [target]="profile"
+  [blocked]="isLoading || isProfileUnavailable || !isLoggedIn"
+  styleClass="bg-black-alpha-20 border-round"
+>
+  @if(isLoading){
+  <p-progressSpinner
+    styleClass="w-3rem h-3rem"
+    strokeWidth="4"
+    animationDuration=".5s"
+  ></p-progressSpinner>
+  } @else if(!isLoggedIn){
+  <div
+    class="flex flex-wrap flex-column justify-content-center align-items-center"
+  >
+    <i class="pi pi-lock text-800" style="font-size: 3rem"></i>
+    <p class="text-700 text-base mt-2 mb-6 md:w-auto w-8rem text-center">
+      You need to sign in to use this feature
+    </p>
+  </div>
+  } @else if(isProfileUnavailable){
+  <i class="pi pi-lock text-800" style="font-size: 3rem"></i>
+  }
+</p-blockUI>
+<app-blockable-div #profile>
+  <div class="surface-card p-5 shadow-2 border-round flex-auto">
+    <div class="text-900 font-semibold text-2xl mt-1">Fitness User Profile</div>
+    <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+    <p-divider styleClass="mt-3 mb-5"></p-divider>
+
+    <div class="flex gap-5 flex-column-reverse md:flex-row">
+      <form
+        [formGroup]="userInfoForm"
+        (ngSubmit)="showConfirmChangeDialog()"
+        class="flex-auto p-fluid"
+      >
+        <div
+          class="w-full flex-wrap flex justify-content-between column-gap-3 row-gap-3 mb-3"
+        >
+          <div class="flex flex-grow-1 flex-column gap-2">
+            <label for="firstName" class="block text-900 font-normal ml-1"
+              >First Name</label
+            >
+            <input
+              pInputText
+              formControlName="firstName"
+              class="w-full"
+              id="firstName"
+              name="firstName"
+              placeholder="First name"
+              required
+            />
+          </div>
+          <div class="flex flex-grow-1 flex-column gap-2">
+            <label for="lastName" class="block text-900 font-normal ml-1"
+              >Last Name</label
+            >
+            <input
+              pInputText
+              formControlName="lastName"
+              class="w-full"
+              id="lastName"
+              name="lastName"
+              placeholder="Last name"
+              required
+            />
+          </div>
+        </div>
+        <div class="flex flex-column gap-2 mb-3">
+          <label for="city" class="block text-900 font-normal ml-1"
+            >Residence City</label
+          >
+          <input
+            pInputText
+            formControlName="city"
+            class="w-full"
+            id="city"
+            name="city"
+            placeholder="City name"
+            required
+          />
+        </div>
+        <div class="flex flex-column gap-2 mb-3">
+          <label for="username" class="block text-900 font-normal ml-1"
+            >Username</label
+          >
+          <input
+            pTooltip="This field is readonly"
+            tooltipPosition="top"
+            readonly
+            pInputText
+            formControlName="username"
+            class="w-full"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="flex flex-column gap-2 mb-3">
+          <label for="mail" class="block text-900 font-normal ml-1"
+            >E-Mail</label
+          >
+          <input
+            pInputText
+            formControlName="mail"
+            type="email"
+            class="w-full"
+            id="mail"
+            name="mail"
+            placeholder="E-Mail"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="biography" class="block font-normal text-900 mb-2 ml-1"
+            >Short Biograpy</label
+          ><textarea
+            pInputTextarea
+            placeholder="Write your biography"
+            formControlName="biography"
+            id="biography"
+            type="text"
+            name="biography"
+            rows="5"
+            class="p-inputtextarea p-inputtext p-inputtextarea-resizable overflow-auto"
+          ></textarea>
+          <p class="mt-1 mb-0 font-medium text-xs text-600">
+            <strong>Note:</strong> You can write something specific about
+            yourself that might interest others.
+          </p>
+        </div>
+        <div class="flex flex-column gap-2 mb-3">
+          <label for="contactInfo" class="block text-900 font-normal ml-1"
+            >Contact Info</label
+          >
+          <input
+            pInputText
+            formControlName="contactInfo"
+            class="w-full"
+            type="text"
+            id="contactInfo"
+            name="contactInfo"
+            placeholder="Contact info"
+          />
+        </div>
+
+        <div class="flex flex-row flex-wrap mt-5 gap-2">
+          <p-button
+            size="small"
+            label="Update Profile"
+            icon="pi pi-user"
+            class="w-full xl:w-auto"
+            type="ngSubmit"
+            styleClass="bg-blue-700 border-blue-700"
+            [disabled]="userInfoForm.invalid"
+          ></p-button>
+          <p-button
+            (click)="setPasswordModalOpen(true)"
+            [outlined]="true"
+            size="small"
+            icon="pi pi-key"
+            label="Change Password"
+            class="w-full xl:w-auto"
+            styleClass="text-blue-700 border-blue-700"
+          ></p-button>
+        </div>
+      </form>
+
+      <div class="flex flex-column align-items-center">
+        <span class="font-medium text-900 mb-2">Profile Avatar</span>
+        <div
+          class="circle-image border-circle w-12rem h-12rem border-1 border-200 overflow-hidden mx-4"
+        >
+          <p-image
+            [src]="avatar || ''"
+            [preview]="true"
+            alt=" "
+            styleClass="bg-center"
+          ></p-image>
+        </div>
+
+        <div class="flex justify-content-center">
+          <button
+            pTooltip="Update profile avatar"
+            tooltipPosition="bottom"
+            pButton
+            (click)="setPictureModalOpen(true)"
+            type="button"
+            icon="pi pi-pencil"
+            class="p-element p-button-rounded -mt-4 p-button p-component p-button-icon-only bg-blue-700 border-blue-700"
+          ></button>
+          <p-dialog
+            header="Header"
+            [(visible)]="isPictureModalOpen"
+            [modal]="true"
+            [draggable]="true"
+            [resizable]="false"
+            [style]="{ width: '35rem' }"
+            [breakpoints]="{ '1200px': '60vw', '575px': '90vw' }"
+          >
+            <ng-template pTemplate="header">
+              <div
+                class="inline-flex align-items-center justify-content-center gap-2 px-3 pt-2"
+              >
+                <i class="pi pi-wrench text-xl font-bold"></i>
+                <span class="font-medium text-2xl white-space-nowrap"
+                  >Change Profile Avatar</span
+                >
+              </div>
+            </ng-template>
+            <div class="flex flex-column flex-wrap gap-2 px-3 pb-1">
+              <p-fileUpload
+                mode="advanced"
+                name="picture"
+                [fileLimit]="1"
+                [maxFileSize]="1000000"
+                [showUploadButton]="true"
+                chooseStyleClass="py-2 px-3 bg-blue-700 border-blue-700"
+                uploadStyleClass="py-2 px-3 bg-blue-700 border-blue-700"
+                cancelStyleClass="py-2 px-3 text-blue-700 border-blue-700 surface-0"
+                styleClass="p-0"
+                chooseLabel="Select Avatar"
+                accept="image/*"
+                (onSelect)="selectPicture($event)"
+                (onBeforeUpload)="updateUserProfileAvatar($event)"
+              ></p-fileUpload>
+            </div>
+          </p-dialog>
+        </div>
+      </div>
+    </div>
+    <!-- Confirm delete -->
+    <app-confirm-dialog></app-confirm-dialog>
+
+    <form [formGroup]="userPasswordForm" class="">
+      <p-dialog
+        header="Header"
+        [(visible)]="isPasswordModalOpen"
+        [modal]="true"
+        [draggable]="true"
+        [resizable]="false"
+        [style]="{ width: '40rem' }"
+        [breakpoints]="{ '1200px': '60vw', '575px': '90vw' }"
+      >
+        <ng-template pTemplate="header">
+          <div
+            class="inline-flex align-items-center justify-content-center gap-2 px-3 py-2"
+          >
+            <i class="pi pi-wrench text-xl font-bold"></i>
+            <span class="font-medium text-2xl white-space-nowrap"
+              >Change Your Password</span
+            >
+          </div>
+        </ng-template>
+        <div class="flex flex-column flex-wrap gap-2 px-3 pt-3 h-20rem">
+          <div class="flex flex-column gap-2">
+            <label
+              for="previousPassword"
+              class="block text-900 font-normal ml-1"
+              >Previous Password*</label
+            >
+            <p-password
+              placeholder="Previous password"
+              formControlName="previousPassword"
+              [feedback]="false"
+              [toggleMask]="true"
+              name="previousPassword"
+              styleClass="w-full"
+              inputStyleClass="w-full"
+              required
+            ></p-password>
+          </div>
+          <div>
+            <div class="flex flex-column gap-2 mt-2">
+              <label for="password" class="block text-900 font-normal ml-1"
+                >New Password*</label
+              >
+              <p-password
+                placeholder="Password"
+                [toggleMask]="true"
+                name="password"
+                formControlName="password"
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                required
+              ></p-password>
+            </div>
+            <div class="flex flex-column gap-2 mt-2">
+              <label
+                for="repeatPassword"
+                class="block text-900 font-normal ml-1"
+                >Repeat New Password*</label
+              >
+              <p-password
+                placeholder="Repeat password"
+                [toggleMask]="true"
+                styleClass="w-full"
+                name="repeatPassword"
+                formControlName="repeatPassword"
+                required
+                inputStyleClass="w-full"
+              ></p-password>
+            </div>
+            <div>
+              @if (userPasswordForm.errors?.['passwordMissmatch'] &&
+              userPasswordForm.controls['password'].valid &&
+              userPasswordForm.controls['repeatPassword'].valid ) {
+              <small
+                class="text-600 font-medium ml-1 text-red-500"
+                id="username-help"
+                >Passwords do not match!</small
+              >
+              } @else {
+              <small class="text-600 ml-1" id="username-help"
+                ><strong>Note:</strong> Passwords should match!</small
+              >
+              }
+            </div>
+          </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <div class="flex flex-row flex-wrap px-3 pb-2">
+            <p-button
+              icon="pi pi-check"
+              size="small"
+              (onClick)="updateUserPassword()"
+              label="Change"
+              styleClass="bg-blue-700 border-blue-700"
+              [disabled]="userPasswordForm.invalid"
+            ></p-button>
+            <p-button
+              icon="pi pi-times"
+              size="small"
+              [outlined]="true"
+              (onClick)="setPasswordModalOpen(false)"
+              label="Cancel"
+              styleClass="text-blue-700 border-blue-700"
+              pAutoFocus
+              [autofocus]="true"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-dialog>
+    </form>
+  </div>
+</app-blockable-div>

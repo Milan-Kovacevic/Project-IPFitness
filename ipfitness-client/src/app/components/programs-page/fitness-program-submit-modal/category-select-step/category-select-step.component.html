@@ -1,0 +1,64 @@
+<form
+  class="flex flex-column px-3 mt-3 pb-2 modal-controls"
+  [formGroup]="categoriesForm"
+>
+  <!-- [ngClass]="
+    activeIndex == 1
+      ? 'flex flex-column px-3 mt-3 pb-2 modal-controls'
+      : 'hidden'
+  " -->
+  <div class="mb-3 flex flex-column w-full row-gap-2">
+    <label for="category" class="block text-900 font-normal ml-1"
+      >Category*</label
+    >
+    <p-dropdown
+      [options]="categories"
+      (onChange)="onCategoryChange($event)"
+      formControlName="category"
+      optionLabel="name"
+      id="category"
+      name="category"
+      [showClear]="true"
+      placeholder="Select a Category"
+      styleClass="w-full"
+      class="text-900"
+    ></p-dropdown>
+  </div>
+  @if(categoriesForm.controls['category'].invalid){
+  <div class="mt-0">
+    <p class="m-0 p-0 ml-1 font-medium text-base">
+      Please, select category from the dropdown menu
+    </p>
+  </div>
+  } @else if(categoryAttributes.length == 0 && categoriesForm.valid){
+  <div class="mt-1 ml-1">
+    <p class="m-0 p-0 font-medium text-lg">
+      There are no attributes required for this category
+    </p>
+    <span class="mt-2 text-sm">You can skip this step.</span>
+  </div>
+
+  } @else{
+  <p class="m-0 p-0 font-medium mt-1 text-lg mb-3 ml-1">
+    Fill in all fields bellow for selected category.
+  </p>
+  <div class="content-max-height flex-1">
+    @for(attribute of categoryAttributes; track attribute.attributeId){
+    <div class="flex flex-column gap-2 mb-2">
+      <label [attr.for]="attribute.name" class="block text-900 font-normal ml-1"
+        >{{ attribute.name }}*</label
+      >
+      <input
+        pInputText
+        class="w-full"
+        type="text"
+        [name]="attribute.name"
+        [id]="attribute.attributeId"
+        [formControlName]="attribute.name"
+        [placeholder]="attribute.name"
+      />
+    </div>
+    }
+  </div>
+  }
+</form>

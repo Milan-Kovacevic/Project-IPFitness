@@ -1,0 +1,77 @@
+<div class="flex justify-content-center align-items-center h-full">
+  @if(isLoading){
+  <div class="flex flex-column justify-content-center align-items-center">
+    <p-progressSpinner
+      styleClass="w-4rem h-4rem"
+      strokeWidth="5"
+      animationDuration=".5s"
+    ></p-progressSpinner>
+    <p class="text-2xl text-200 m-0 mt-1">Activating...</p>
+  </div>
+  } @else if(isActivated){
+  <div class="text-center mb-6 w-full">
+    <div class="mb-4">
+      <span class="pi pi-check text-7xl text-50"></span>
+      <p class="mt-0 font-bold text-5xl md:text-5xl text-50">
+        Activation was successful
+      </p>
+    </div>
+    <p class="m-0 mb-1 text-400 text-2xl">Yout account has been activated!</p>
+    <div
+      class="mt-3 flex column-gap-5 row-gap-2 flex-wrap justify-content-center align-items-center w-full"
+    >
+      <div class="text-center flex align-items-center justify-content-center">
+        <button
+          pButton
+          routerLink="/auth/register"
+          pRipple
+          label="Register New Account"
+          icon="pi pi-user"
+          class="p-button-rounded p-button-outlined p-button p-component"
+        ></button>
+      </div>
+      <div
+        class="md:flex hidden relative align-items-center justify-content-center py-4 min-h-full"
+      >
+        <div
+          class="border-left-1 border-right-1 surface-border top-0 left-50 absolute h-full"
+        ></div>
+      </div>
+      <div class="flex align-items-center justify-content-center">
+        <button
+          pButton
+          routerLink="/home"
+          pRipple
+          label="Go to Home page"
+          icon="pi pi-home"
+          class="p-button-rounded p-button p-component"
+        ></button>
+      </div>
+    </div>
+  </div>
+  } @else{
+  <div class="text-center mb-6">
+    <div>
+      <img
+        src="assets/404-rocket.png"
+        alt="Image"
+        class="w-full md:w-20rem sm:w-16rem w-12rem mr-5"
+      />
+    </div>
+    <div class="mt-2 mb-4 font-bold text-3xl md:text-5xl text-50">
+      Activation Failed
+    </div>
+    <p class="text-400 md:text-3xl text-xl mt-3 mb-2">
+      Sorry, we couldn't activate your account.
+    </p>
+    <p class="mt-0 text-50 md:text-xl text-sm">
+      Verification token is invalid or expired...
+    </p>
+    <p-button
+      routerLink="/home"
+      label="Go back to home"
+      styleClass="mt-2"
+    ></p-button>
+  </div>
+  }
+</div>

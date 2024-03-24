@@ -1,0 +1,12 @@
+.exercise-item {
+  background: linear-gradient(90deg, #1b2735, #4b6381);
+  border-top: 10px solid transparent;
+  height: 20rem;
+  overflow: hidden;
+}
+
+.exercise-description {
+  text-wrap: wrap;
+  max-height: 10rem;
+  overflow: hidden;
+}

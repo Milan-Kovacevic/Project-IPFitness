@@ -1,0 +1,236 @@
+<div class="p-4 flex justify-content-center navigation-page overflow-auto">
+  <div
+    class="surface-section mt-2 px-4 lg:px-6 pt-4 lg:pb-2 flex flex-column w-full h-full"
+  >
+    <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+    <!-- Fitness Program Modal -->
+    <app-fitness-program-submit-modal
+      [programId]="programId"
+      [isLoading]="isModalOpen"
+      [isOpen]="isModalOpen"
+      (onClose)="onCloseProgramModal()"
+      (onSubmit)="onProgramSubmit($event)"
+      [locations]="locations"
+      [difficulties]="difficulties"
+      [categories]="categories"
+    ></app-fitness-program-submit-modal>
+    <!-- Header -->
+    <div
+      class="flex justify-content-between flex-wrap xl:flex-row row-gap-3 flex-column"
+    >
+      <div
+        class="flex flex-wrap flex-column md:flex-row column-gap-5 justify-content-between flex-1"
+      >
+        <div class="flex align-items-center mb-3 md:mb-0">
+          <div>
+            <h2 class="mt-0 mb-2 text-900 font-medium text-3xl">
+              Fitness Programs
+            </h2>
+            <p class="mt-0 mb-0 text-lg text-600">
+              Browse all fitness programs
+            </p>
+          </div>
+        </div>
+        <!-- Show only if user is logged in -->
+        @if(isAccountActivated){
+        <div
+          class="flex flex-wrap row-gap-3 flex-row justify-content-between flex-1 md:mt-0 mt-2 md:align-self-end"
+        >
+          <p-button
+            size="small"
+            label="Add New Program"
+            (onClick)="navigateToAddProgram()"
+            [text]="true"
+            [raised]="true"
+            [rounded]="true"
+            icon="pi pi-plus text-blue-700"
+            styleClass="text-blue-700"
+          ></p-button>
+        </div>
+        }
+      </div>
+      <div
+        class="flex flex-wrap flex-row-reverse md:flex-row gap-3 md:mt-0 justify-content-start md:justify-content-end"
+      >
+        <!-- Serach -->
+        <div class="align-self-end flex align-items-center w-full md:w-auto">
+          <form
+            #searchForm
+            (ngSubmit)="onProgramSearch()"
+            class="p-input-icon-left w-full p-input-filled"
+          >
+            <i class="pi pi-search"></i
+            ><input
+              [disabled]="isLoading"
+              pInputText
+              name="search"
+              type="text"
+              [(ngModel)]="searchQuery"
+              class="py-2 w-full"
+              placeholder="Product search"
+            />
+          </form>
+        </div>
+        <!-- Sorting -->
+        <div class="align-self-end">
+          <button
+            type="button"
+            pButton
+            icon="pi pi-sort-alt"
+            iconPos="right"
+            label="Sort By"
+            [disabled]="isLoading"
+            (click)="sort.toggle($event)"
+            class="p-button-outlined p-button-secondary w-10rem md:w-7rem p-2 p-button"
+          ></button
+          ><p-menu
+            #sort
+            [popup]="true"
+            [model]="sortItems"
+            class="p-element"
+          ></p-menu>
+        </div>
+      </div>
+    </div>
+    <p-divider styleClass="my-4"></p-divider>
+    <!-- Fitler area -->
+    <form [formGroup]="filterForm" (ngSubmit)="onApplyFilters()">
+      <div class="flex flex-row flex-wrap md:flex-row flex-column">
+        <p-dropdown
+          [options]="categories"
+          optionLabel="name"
+          optionValue="categoryId"
+          formControlName="category"
+          [showClear]="true"
+          placeholder="Select a Category"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 mb-3 lg:mt-0 mr-3 text-900"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="locations"
+          formControlName="location"
+          optionLabel="displayName"
+          optionValue="key"
+          [showClear]="true"
+          placeholder="Select a Location"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 mb-3 lg:mt-0 mr-3 text-900"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="difficulties"
+          formControlName="difficulty"
+          optionLabel="displayName"
+          optionValue="key"
+          [showClear]="true"
+          placeholder="Select a Difficulty"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 mb-3 lg:mt-0 mr-3 text-900"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="states"
+          formControlName="state"
+          optionLabel="displayName"
+          optionValue="key"
+          [showClear]="false"
+          placeholder="Select a Program State"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 mb-3 lg:mt-0 mr-3 text-900"
+        ></p-dropdown>
+        @if(isAccountActivated){
+        <p-dropdown
+          [options]="options"
+          formControlName="option"
+          optionLabel="displayName"
+          optionValue="key"
+          [showClear]="true"
+          placeholder="Select additional Filters"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 mb-3 lg:mt-0 mr-3 text-900"
+        ></p-dropdown>
+        }
+        <div class="flex flex-wrap flex-row mt-1 md:mt-0">
+          <p-button
+            styleClass="mb-3 lg:mt-0 flex-shrink-0 w-12rem bg-blue-700 border-blue-700"
+            tyle="submit"
+            (onClick)="onApplyFilters()"
+            [disabled]="
+              isLoading ||
+              (filterForm.controls['category'].value == undefined &&
+                filterForm.controls['location'].value == undefined &&
+                filterForm.controls['difficulty'].value == undefined &&
+                filterForm.controls['state'].value == undefined &&
+                filterForm.controls['option'].value == undefined)
+            "
+            class="flex-1"
+            label="Apply Filters"
+            icon="pi pi-sliders-h"
+          ></p-button>
+          <p-button
+            [link]="true"
+            (onClick)="onClearFilters()"
+            styleClass="text-900"
+            class="hoverable cursor-pointer flex align-items-center font-medium mb-3 ml-2 mr-3 md:mr-0 lg:mt-0 text-900"
+          >
+            Clear All
+          </p-button>
+        </div>
+      </div>
+    </form>
+    <!-- Main Area -->
+    <div class="mt-4 -mx-2 flex-grow-1 grid grid-nogutter h-auto">
+      @if(isLoading){
+      <div
+        class="w-full flex flex-column justify-content-center align-items-center my-8"
+      >
+        <p-progressSpinner
+          styleClass="w-4rem h-4rem"
+          [classList]="['loader']"
+          strokeWidth="4"
+          animationDuration="1s"
+        ></p-progressSpinner>
+        <p class="text-center text-600 text-xl mt-2 font-medium pb-6 ml-2">
+          Loading fitness programs...
+        </p>
+      </div>
+
+      } @else if(!fitnessPrograms || fitnessPrograms.length == 0){
+      <div
+        class="p-4 mt-4 flex flex-column w-full justify-content-center align-items-center"
+      >
+        <img
+          src="assets/404-rocket.png"
+          alt="Image"
+          class="w-full md:w-16rem sm:w-22rem w-10rem mr-5"
+        />
+        <p class="text-center mt-0 mb-2 font-medium text-3xl text-700">
+          No Programs To Show
+        </p>
+        <p class="text-center text-400 text-base mt-0 mb-6">
+          Parhaps, you should adjust filter and search criteria.
+        </p>
+      </div>
+      } @else{ @for (program of fitnessPrograms; track program.programId) {
+      <app-fitness-program-card
+        (onProgramDelete)="showConfirmDeleteDialog($event)"
+        (onProgramEdit)="navigateToEditProgram($event)"
+        (onViewProgramDetails)="navigateToProgramDetails($event)"
+        [program]="program"
+        class="p-0 col-12 md:col-6 lg:col-4 xl:col-3"
+      ></app-fitness-program-card>
+      } }
+    </div>
+    <!-- Pagination -->
+    <div class="mt-2 text-center flex justify-content-center">
+      <p-paginator
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+        [rowsPerPageOptions]="rowsPerPageOptions"
+      ></p-paginator>
+    </div>
+    <app-footer class="-mt-5"></app-footer>
+    <!-- Confirm delete -->
+    <app-confirm-dialog></app-confirm-dialog>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+<div class="p-4 flex justify-content-center navigation-page overflow-auto">
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  <app-program-purchase
+    [program]="program ?? null"
+    [programOverviewPicture]="
+      programPictures.length > 0 ? programPictures[0] : ''
+    "
+    [isModalOpen]="isPurhcaseModalOpen"
+    (isModalOpenChanged)="onIsPurhcaseModalOpenChanged($event)"
+    (onProgramPurchase)="onFitnessProgramPurchase($event)"
+  ></app-program-purchase>
+  @if(program != undefined && program.isPurchased && isAccountActivated) {
+  <app-program-participation
+    [isOnline]="isLocationOnline"
+    [program]="program"
+    [programLocation]="programLocation"
+    [isModalOpen]="isParticipationModalOpen"
+    (isModalOpenChanged)="onIsParticipationModalOpenChanged($event)"
+  ></app-program-participation>
+  } @if(!hasErrors){
+  <div
+    class="w-full mx-5 h-full flex flex-column align-items-center row-gap-4 mt-2 lg:mt-3"
+  >
+    @if(program !== undefined && !isLoadingProgram){
+    <div
+      class="grid w-full mx-auto justify-content-center my-4 lg:px-2 xl:px-4 row-gap-2"
+    >
+      <div class="col-12 lg:col-5 xl:col-4">
+        <div class="border-round-2xl overflow-hidden border-3 border-300">
+          <p-galleria
+            [value]="programPictures"
+            [autoPlay]="true"
+            [circular]="true"
+            [showItemNavigators]="true"
+            [showThumbnails]="false"
+            class="galeria"
+          >
+            <ng-template pTemplate="item" let-item>
+              <div class="w-full">
+                <img [src]="item" class="-mb-2" />
+              </div>
+            </ng-template>
+          </p-galleria>
+        </div>
+      </div>
+      <div
+        class="col-12 lg:col-6 xl:col-5 py-3 px-4 lg:pl-5 xl:pl-6 flex flex-column flex-wrap"
+      >
+        <h2
+          class="m-0 flex align-items-center text-3xl font-medium text-900 mb-3"
+        >
+          {{ program.name }}
+        </h2>
+        <div class="flex align-items-center justify-content-between mb-5">
+          <span class="text-800 font-medium text-3xl block text-blue-600"
+            >${{ program.price }}</span
+          >
+          <div class="flex align-items-center">
+            <span class="text-sm"
+              ><b class="text-900 mr-1">{{
+                program.numberOfParticipants === 0
+                  ? "Be first of many"
+                  : program.numberOfParticipants
+              }}</b
+              ><span class="text-500"></span>participants</span
+            >
+          </div>
+        </div>
+        <div
+          class="text-800 mb-3 flex justify-content-between sm:flex-nowrap flex-wrap"
+        >
+          <div class="flex flex-column row-gap-2 w-full">
+            <div class="flex align-items-center gap-1">
+              <i class="pi pi-map-marker text-xl font-medium"></i>
+              <p class="m-0 font-normal">Location</p>
+            </div>
+            <p class="m-0 font-medium text-xl ml-3 text-left">
+              {{ programLocation }}
+            </p>
+          </div>
+          <span class="text-xl text-400 sm:block hidden">|</span>
+          <div class="flex flex-column row-gap-2 w-full">
+            <div class="flex align-items-center gap-1 justify-content-end">
+              <p class="m-0 font-normal">Difficulty</p>
+              <i class="pi pi-bolt text-xl font-medium"></i>
+            </div>
+            <p class="m-0 font-medium text-xl mr-3 ml-auto text-right">
+              {{ programDifficulty }}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-column lg:mb-3 mb-6 mt-1 gap-2">
+          <p class="m-0 text-500 text-lg font-medium">
+            Training period (dates)
+          </p>
+          <div class="flex text-600 font-medium align-items-center gap-2">
+            <span class="text-700">{{ programStart }}</span
+            >-
+            <span class="text-700">{{ programEnd }}</span>
+          </div>
+        </div>
+
+        <div
+          class="flex-1 flex column-gap-5 row-gap-3 flex-column sm:flex-row align-items-end sm:justify-content-between"
+        >
+          @if(program.isPurchased && isAccountActivated) {
+          <button
+            pButton
+            pRipple
+            icon="pi pi-sign-in text-blue-700"
+            (click)="openParticipationModal()"
+            label="Join Program"
+            class="p-element w-full p-ripple flex-1 p-button-outlined p-component border-blue-700 text-blue-700"
+          ></button>
+          } @else if(!isOwner && !program.isPurchased && isAccountActivated) {
+          <button
+            pButton
+            pRipple
+            (click)="openPurhcaseModal()"
+            icon="pi pi-shopping-cart"
+            label="Purchase this Program"
+            class="p-element w-full p-ripple flex-1 bg-blue-700 border-blue-700 p-component"
+          ></button
+          >}
+          <div
+            class="ml-auto flex flex-row align-items-center h-3rem justify-content-center gap-1"
+          >
+            <span class="font-medium text-600">{{
+              program.numberOfComments
+            }}</span>
+            <i class="pi text-2xl pi-comment cursor-pointer text-500"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Additional details and comments -->
+    <div class="w-full mx-auto flex justify-content-center">
+      <p-tabView
+        (onChange)="onTabViewChange($event)"
+        class="w-full lg:w-11 xl:w-10 block"
+        styleClass="tabview-custom"
+      >
+        <p-tabPanel>
+          <ng-template pTemplate="header" class="test">
+            <i class="pi pi-list mr-2 text-blue-700"></i>
+            <span class="text-blue-700">Details</span>
+          </ng-template>
+          <app-program-details
+            [isLoading]="isLoadingDetails"
+            [ownerAvatar]="ownerAvatar"
+            [program]="program"
+          ></app-program-details>
+        </p-tabPanel>
+        <p-tabPanel header="Header II">
+          <ng-template pTemplate="header">
+            <i class="pi pi-comments mr-2 text-blue-700"></i>
+            <span class="text-blue-700">Comments</span>
+          </ng-template>
+          <app-program-comments
+            [isLoading]="isLoadingComments"
+            [program]="program ?? null"
+            [comments]="programComments"
+            (onCommentPost)="onProgramCommentPosted($event)"
+          ></app-program-comments>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+  } @else {
+  <div
+    class="p-4 mt-4 flex flex-column w-full justify-content-center align-items-center"
+  >
+    <img
+      src="assets/404-rocket.png"
+      alt="Image"
+      class="w-full md:w-16rem sm:w-22rem w-10rem mr-5"
+    />
+    <p class="text-center mt-0 mb-2 font-medium text-3xl text-700">
+      Unexpected Error occured
+    </p>
+    <p class="text-center text-400 text-xl mt-0 mb-6">
+      Please, try again later.
+    </p>
+  </div>
+  }
+</div>

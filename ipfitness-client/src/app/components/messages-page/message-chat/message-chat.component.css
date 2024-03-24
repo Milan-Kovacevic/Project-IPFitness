@@ -1,0 +1,20 @@
+.left-msg-box {
+  border-radius: 7px;
+  border-top-left-radius: 0px;
+  flex-basis: 60%;
+}
+
+.right-msg-box {
+  border-radius: 7px;
+  border-top-right-radius: 0px;
+  flex-basis: 60%;
+  background-color: #1b2735!important;
+}
+
+.messages-card {
+  max-height: 720px !important;
+}
+
+.message-chat {
+  overflow: auto !important;
+}

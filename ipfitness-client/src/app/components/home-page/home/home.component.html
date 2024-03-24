@@ -1,0 +1,30 @@
+<div class="p-4 flex justify-content-center navigation-page">
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  <div
+    class="surface-section mt-2 px-4 pt-4 lg:pb-2 flex flex-column w-full h-full"
+  >
+    <!-- Exercise suggestions -->
+    @if(isAccountActivated){
+    <app-fitness-exercises
+      [isLoading]="isLoadingExercises"
+      [hasErrors]="exercisesError"
+      [dailyExercises]="dailyExercises"
+    ></app-fitness-exercises>
+
+    @if(!isLoadingExercises && !categoriesError){
+    <!-- Category subscriptions-->
+    <app-category-subscription
+      (onCategorySubscribe)="onCategorySubscriptionChanged($event, true)"
+      (onCategoryUnsubscribe)="onCategorySubscriptionChanged($event, false)"
+      [categories]="categories"
+    ></app-category-subscription>
+    } }
+    <!-- News From RSS -->
+    <app-fitness-news
+      [isLoading]="isLoadingNews"
+      [hasErrors]="newsError"
+      [news]="news"
+    ></app-fitness-news>
+    <app-footer class="mt-auto px-4"></app-footer>
+  </div>
+</div>

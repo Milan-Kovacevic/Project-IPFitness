@@ -1,0 +1,50 @@
+@if(!hasErrors){
+<div class="surface-section px-0 md:px-2 lg:px-4 mb-8">
+  <div class="">
+    <h2 class="font-medium text-3xl text-900 mb-2 mt-0">
+      Exercise suggestions
+    </h2>
+    <p class="text-600 text-lg mt-0 mb-0">
+      Review today's 10 featured exercises.<span
+        class="text-400 text-sm mt-1 mb-0"
+      >
+        Each day you will get new suggestions, so stay tuned.</span
+      >
+    </p>
+  </div>
+  <p-divider styleClass="my-4"></p-divider>
+  <div class="w-full grid nogutter mt-5">
+    @if(isLoading){
+    <div class="col-12 lg:col-6 xl:col-4 p-4">
+      <p-skeleton height="3rem" width="35%" styleClass="mb-3"></p-skeleton>
+      <div class="w-full">
+        <p-skeleton width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="45%" styleClass="mb-1"></p-skeleton>
+        <p-skeleton height="8rem" width="100%"></p-skeleton>
+      </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4 p-4">
+      <p-skeleton height="3rem" width="35%" styleClass="mb-3"></p-skeleton>
+      <div class="w-full">
+        <p-skeleton width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="45%" styleClass="mb-1"></p-skeleton>
+        <p-skeleton height="8rem" width="100%"></p-skeleton>
+      </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-4 p-4">
+      <p-skeleton height="3rem" width="35%" styleClass="mb-3"></p-skeleton>
+      <div class="w-full">
+        <p-skeleton width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="45%" styleClass="mb-1"></p-skeleton>
+        <p-skeleton height="8rem" width="100%"></p-skeleton>
+      </div>
+    </div>
+    } @else { @for(exercise of dailyExercises?.exercises; track exercise){
+    <app-exercise-item
+      [exercise]="exercise"
+      class="col-12 lg:col-6 xl:col-4"
+    ></app-exercise-item>
+    } }
+  </div>
+</div>
+}

@@ -1,0 +1,61 @@
+<div
+  class="border-round-top-3xl p-4 gap-2 flex justify-content-center align-items-center navigation-page z-1 overflow-auto"
+>
+  <div
+    class="surface-section px-4 py-4 lg:py-5 lg:px-6 h-full"
+  >
+    <div
+      class="flex flex-column md:flex-row w-full justify-content-between md:align-items-center"
+    >
+      <div>
+        <h2 class="mt-0 mb-2 text-900 font-medium text-3xl">Settings</h2>
+        <p class="mt-0 mb-0 text-500">Manage your application settings</p>
+      </div>
+    </div>
+    <p-divider styleClass="my-4"></p-divider>
+
+    <div class="p-fluid flex flex-column lg:flex-row">
+      <ul
+        class="list-none m-0 p-0 flex flex-row xl:mr-5 lg:mr-3 lg:flex-column justify-content-between lg:justify-content-start mb-4 gap-1 lg:mb-0"
+      >
+        <li>
+          <a
+            pRipple
+            routerLinkActive="surface-200"
+            routerLink="/settings/profile"
+            class="no-underline p-ripple p-element lg:w-15rem flex align-items-center cursor-pointer p-3 border-round hover:surface-200 transition-duration-150 transition-colors"
+            ><i class="pi pi-user md:mr-2 text-700"></i
+            ><span class="font-medium hidden md:block text-800"
+              >Profile</span
+            ></a
+          >
+        </li>
+        <li>
+          <a
+            pRipple
+            routerLinkActive="surface-200"
+            routerLink="/settings/history"
+            class="no-underline p-ripple p-element lg:w-15rem flex align-items-center cursor-pointer p-3 border-round hover:surface-200 transition-duration-150 transition-colors"
+            ><i class="pi pi-money-bill md:mr-2 text-600"></i
+            ><span class="font-medium hidden md:block text-700"
+              >Purchase History</span
+            ></a
+          >
+        </li>
+        <li>
+          <a
+            pRipple
+            pTooltip="Feature currently unavailable"
+            tooltipPosition="bottom"
+            class="no-underline p-ripple p-element lg:w-15rem flex align-items-center surface-100 text-800 p-3 border-round transition-duration-150 transition-colors"
+            ><i class="pi pi-palette md:mr-2"></i
+            ><span class="font-medium hidden md:block">Appearance</span>
+          </a>
+        </li>
+      </ul>
+
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer class="mt-auto"></app-footer>
+  </div>
+</div>

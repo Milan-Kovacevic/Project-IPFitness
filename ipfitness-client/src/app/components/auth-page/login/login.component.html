@@ -1,0 +1,102 @@
+<div
+  class="flex h-screen justify-content-center align-items-center overflow-auto"
+>
+  <p-toast position="top-center"></p-toast>
+  <div
+    class="bg-black-alpha-30 md:px-6 px-4 pt-5 md:pb-6 pb-5 m-5 md:m-0 shadow-7 border-round-xl w-full md:w-8 login-form"
+  >
+    <div class="flex flex-column flex-wrap justify-content-center align-items-center column-gap-6 row-gap-2">
+      <div
+        class="mb-1 flex flex-column align-items-center justify-content-start"
+      >
+        <span class="material-symbols-outlined text-50 text-5xl md:text-7xl">
+          exercise
+        </span>
+        <p class="p-0 m-0 text-2xl md:text-4xl font-medium text-50">
+          <strong>IP</strong>Fitness
+        </p>
+      </div>
+
+      <div class="text-center mb-5">
+        <div class="text-0 text-3xl md:text-5xl font-medium mb-1">Welcome Back</div>
+        <span class="text-300 md:text-xl text-base font-medium line-height-3"
+          >Don't have an account?</span
+        >
+        <a
+          routerLink="/auth/register"
+          class="font-medium no-underline md:text-base text-sm ml-2 text-blue-400 cursor-pointer"
+          >Create today!</a
+        >
+      </div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="flex flex-column gap-2 mb-3">
+        <label for="username" class="block text-50 font-medium ml-1"
+          >Username</label
+        >
+        <input
+          pInputText
+          formControlName="username"
+          class="w-full surface-900 text-50"
+          id="username"
+          name="username"
+          placeholder="Username"
+          aria-describedby="username-help"
+        />
+        @if (loginForm.controls['username'].errors?.['required']) {
+        <small class="text-200 ml-1 text-red-300" id="username-help"
+          >Username is required</small
+        >
+        } @else {
+        <small class="text-200 ml-1" id="username-help"
+          >Enter your username.</small
+        >
+        }
+      </div>
+
+      <div class="flex flex-column gap-2 mb-5">
+        <label for="password" class="block text-50 font-medium ml-1"
+          >Password</label
+        >
+        <p-password
+          placeholder="Password"
+          formControlName="password"
+          [toggleMask]="true"
+          [feedback]="false"
+          name="password"
+          styleClass="w-full"
+          inputStyleClass="w-full surface-900 text-50"
+          aria-describedby="password-help"
+        ></p-password>
+        @if (loginForm.controls['password'].errors?.['required']) {
+        <small class="text-200 ml-1 text-red-300" id="username-help"
+          >Password is required</small
+        >
+        } @else {
+        <small class="text-200 ml-1" id="username-help"
+          >Enter your password.</small
+        >
+        }
+      </div>
+
+      <button
+        pButton
+        pRipple
+        label="Sign In"
+        icon="pi pi-user"
+        [loading]="isLoading"
+        class="w-full bg-blue-400 text-900"
+        [disabled]="loginForm.invalid"
+      ></button>
+      <p-button
+        pRipple
+        label="Return Back"
+        icon="pi pi-arrow-left"
+        [outlined]="true"
+        styleClass="w-full mt-2"
+        (onClick)="navigateToHomePage()"
+      ></p-button>
+    </form>
+  </div>
+</div>

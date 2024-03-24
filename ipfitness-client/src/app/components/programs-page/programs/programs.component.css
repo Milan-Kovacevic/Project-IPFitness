@@ -1,0 +1,7 @@
+.hoverable:hover {
+  opacity: 0.85;
+}
+
+.additional-filters {
+  max-width: 300px;
+}

@@ -1,0 +1,86 @@
+<div class="flex flex-column px-3 pb-1 mt-3">
+  @if(isLocationOnline){
+  <div class="flex flex-column flex-wrap gap-2 mb-0 h-full">
+    <div
+      class="flex flex-row flex-wrap justify-content-between gap-3 align-items-center"
+    >
+      <div>
+        <p class="m-0 p-0 font-medium ml-1 pb-2 text-lg">
+          <strong>(Required)</strong> Add demonstrational videos
+        </p>
+        <span class="text-400 ml-1 mb-4 mt-2 text-sm">
+          <strong>Pay attention to the order</strong> of the video links to
+          match your preferred order.
+        </span>
+      </div>
+
+      <p-inputGroup>
+        <input
+          pInputText
+          [(ngModel)]="demonstration"
+          styleClass="py-0 w-full"
+          placeholder="Type or paste YouTube video"
+          required
+        />
+        <button
+          type="button"
+          (click)="addDemonstration()"
+          class="p-button-outlined"
+          pButton
+          label="Add"
+        ></button>
+      </p-inputGroup>
+    </div>
+
+    @if(demonstrationVideos.length > 0){
+    <div class="videos-table mt-2 flex-1">
+      <p-table
+        [reorderableColumns]="true"
+        [value]="demonstrationVideos"
+        styleClass="w-full p-datatable-sm"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+            <th style="width: 5rem">Order</th>
+            <th>Demonstration Video</th>
+            <th style="width: 6rem"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-index="rowIndex">
+          <tr [pReorderableRow]="index">
+            <td>
+              <span class="pi pi-bars" pReorderableRowHandle></span>
+            </td>
+            <td>{{ index + 1 }}</td>
+            <td>{{ rowData }}</td>
+            <td>
+              <p-button
+                pTooltip="Remove video from list"
+                tooltipStyleClass="text-sm"
+                icon="pi pi-times"
+                [rounded]="true"
+                [text]="true"
+                [raised]="true"
+                styleClass="p-0 h-2rem w-2rem"
+                (onClick)="removeDemonstration(rowData)"
+                severity="secondary "
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    } @else {
+    <p class="m-0 p-0 mt-2 font-italic ml-1 text-base">
+      Demonstrational videos are displayed here...
+    </p>
+    }
+  </div>
+  } @else{
+  <span class="text-600 font-italic ml-1 mx-1 mb-5 text-base">
+    If you wish to add demonstrational videos on your program, location of a
+    fitness program needs to be online (found in section 'Basic Information').
+  </span>
+  }
+</div>

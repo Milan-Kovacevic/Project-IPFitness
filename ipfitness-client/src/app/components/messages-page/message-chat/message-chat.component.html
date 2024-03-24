@@ -1,0 +1,128 @@
+<p-blockUI
+  [target]="messages"
+  [blocked]="hasErrors"
+  styleClass="bg-black-alpha-20 border-round"
+>
+  <div
+    class="flex flex-column gap-1 align-items-center justify-content-center text-center"
+  >
+    <i class="pi pi-lock text-800" style="font-size: 3rem"></i>
+    <span>Unable to load messages</span>
+  </div>
+</p-blockUI>
+
+<p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+<app-blockable-div class="flex h-full w-full" #messages>
+  <div
+    class="surface-card messages-card flex-1 p-5 shadow-2 border-round h-full"
+  >
+    <div class="flex flex-column-reverse gap-2 xl:flex-row w-full h-full">
+      @if(isLoadingChat || isLoadingList){
+      <app-direct-chat-skeleton
+        class="w-full h-full"
+      ></app-direct-chat-skeleton>
+      } @if(!isLoadingList && !isLoadingChat && !hasErrors){
+      <!-- Message Chat -->
+      <div class="flex message-chat flex-column w-full h-full p-1">
+        <div
+          class="p-1 border-1 border-round border-300 pl-3 pb-3 pt-1 h-full overflow-hidden"
+        >
+          <div class="overflow-auto flex flex flex-column-reverse h-full">
+            @for(message of chatMessages; track message.messageId){
+            <!-- Other user -->
+            @if(message.userFromId != currentUserId){
+            <div class="flex w-full flex-row gap-1 mt-1">
+              <p-avatar
+                size="large"
+                shape="circle"
+                [image]="otherUser?.avatar"
+                class="pt-2"
+              ></p-avatar>
+              <div
+                class="flex flex-column gap-1 pl-2 w-8 h-full align-items-start"
+              >
+                <div class="flex flex-row column-gap-1 mt-1 align-items-center">
+                  <span class="text-sm font-medium text-600 ml-1">
+                    {{ otherUser?.firstName }} {{ otherUser?.lastName }}
+                  </span>
+                  <span class="mx-1 text-xs">|</span>
+                  <span class="text-xs text-400">
+                    {{ dispalyMessageDate(message.timeSent) }}
+                  </span>
+                </div>
+                <div
+                  class="h-full w-full px-3 py-3 left-msg-box surface-100 text-700 shadow-2"
+                >
+                  {{ message.content }}
+                </div>
+              </div>
+            </div>
+            } @else {
+            <!-- Logged user -->
+            <div class="flex w-full flex-row-reverse mt-1 pr-1">
+              <p-avatar
+                size="large"
+                shape="circle"
+                [image]="currentUserAvatar"
+                class="pt-3"
+              ></p-avatar>
+              <div
+                class="flex flex-column gap-1 pr-2 w-8 h-full align-items-end"
+              >
+                <div class="flex flex-row column-gap-1 mt-1 align-items-center">
+                  <span class="text-xs text-400">
+                    {{ dispalyMessageDate(message.timeSent) }}
+                  </span>
+                  <span class="mx-1 text-xs">|</span>
+                  <span class="text-sm font-medium text-600 ml-1"> You </span>
+                </div>
+                <div
+                  class="h-full w-full px-3 py-3 right-msg-box bg-blue-600 text-50 shadow-2"
+                >
+                  {{ message.content }}
+                </div>
+              </div>
+            </div>
+            } }
+          </div>
+        </div>
+        @if(!isLoadingList && otherUser != undefined){
+        <form
+          (ngSubmit)="sendMessage()"
+          class="w-full flex flex-row column-gap-1 mt-3"
+        >
+          <input
+            pInputTextarea
+            [(ngModel)]="messageText"
+            placeholder="Type a message here..."
+            id="biography"
+            type="text"
+            name="biography"
+            rows="3"
+            [readOnly]="isLoadingChat"
+            [disabled]="isLoadingChat"
+            class="overflow-auto flex-1"
+          />
+          <p-button
+            icon="pi pi-send"
+            [rounded]="false"
+            [text]="true"
+            type="ngSubmit"
+          ></p-button>
+        </form>
+        }
+      </div>
+      } @if(!hasErrors){
+      <!-- Chat selector -->
+      <div class="flex-base xl:ml-1 xl:mb-0 mb-3">
+        <chat-list-selector
+          (isLoadingChanged)="onIsLoadingListChanged($event)"
+          (onUserSelected)="onOpenDirectChat($event)"
+          (onHasError)="onHasErrors()"
+          class="block w-full h-full"
+        ></chat-list-selector>
+      </div>
+      }
+    </div>
+  </div>
+</app-blockable-div>

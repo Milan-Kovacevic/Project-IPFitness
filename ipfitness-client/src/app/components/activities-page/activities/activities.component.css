@@ -1,0 +1,4 @@
+.activity-items {
+    max-height: max(40vh, 100px);
+    overflow-y: auto;
+}

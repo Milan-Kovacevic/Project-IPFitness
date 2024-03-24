@@ -1,0 +1,30 @@
+<div class="surface-card p-5 shadow-2 border-round w-full">
+  <div class="text-900 font-semibold text-2xl mt-1">Your purchase history</div>
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  <p-divider styleClass="mt-3 mb-5"></p-divider>
+  <div class="flex flex-column row-gap-4 history-items">
+    @if(!isLoading && purchaseItems.length == 0){
+    <div
+      class="p-4 mt-4 flex flex-column w-full flex-1 justify-content-center align-items-center"
+    >
+      <img
+        src="assets/404-rocket.png"
+        alt="Image"
+        class="w-full md:w-12rem sm:w-18rem w-8rem mr-5"
+      />
+      <p class="text-center mt-0 mb-2 font-medium text-3xl text-700">
+        History is empty
+      </p>
+      <p class="text-center text-400 text-base mt-0 mb-6 w-18rem">
+        Purchase some fitness programs to be able to view your history.
+      </p>
+    </div>
+    } @else if(isLoading){
+    <app-purchase-item-skeleton></app-purchase-item-skeleton>
+    <app-purchase-item-skeleton></app-purchase-item-skeleton>
+    <app-purchase-item-skeleton></app-purchase-item-skeleton>
+    } @else { @for(item of purchaseItems; track item.purchaseId){
+    <app-purchase-item [purchaseItem]="item"></app-purchase-item>
+    } }
+  </div>
+</div>

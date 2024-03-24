@@ -1,0 +1,14 @@
+.galeria img {
+  width: 100% !important;
+  height: 28rem !important;
+  object-fit: cover !important;
+  -webkit-filter: grayscale(50%) !important;
+  filter: grayscale(50%) !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .galeria img {
+    height: 28rem!important;
+    object-fit: cover !important;
+  }
+}

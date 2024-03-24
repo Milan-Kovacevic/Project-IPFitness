@@ -1,0 +1,62 @@
+<form [formGroup]="questionForm" class="">
+  <p-dialog
+    header="Header"
+    [(visible)]="isModalOpen"
+    [modal]="true"
+    [closable]="false"
+    [draggable]="true"
+    [resizable]="false"
+    [style]="{ width: '40rem' }"
+    [breakpoints]="{ '1200px': '60vw', '575px': '90vw' }"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex flex-column justify-content-center gap-1 px-3 py-2">
+        <p class="m-0 font-medium text-2xl white-space-nowrap text-700">
+          Contact Advisor
+        </p>
+        <span class="text-400 text-sm font-italic"
+          >Send question to our fitness program advisor</span
+        >
+      </div>
+    </ng-template>
+    <div class="flex flex-column flex-wrap gap-2 px-3 py-1">
+      <textarea
+        pInputTextarea
+        formControlName="content"
+        placeholder="Write your question here..."
+        id="biography"
+        type="text"
+        name="biography"
+        rows="10"
+        [readOnly]="isLoading"
+        class="p-inputtextarea p-inputtext p-inputtextarea-resizable overflow-auto"
+      ></textarea>
+      <p class="m-0 ml-1 line-height-2 text-400 text-sm">
+        <strong>Note: </strong>Check your mail inbox for advisor response.
+      </p>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="flex flex-row justify-content-end flex-wrap px-3 pb-2">
+        <p-button
+          icon="pi pi-send"
+          size="small"
+          (onClick)="sendQuestionToAdvisor()"
+          [loading]="isLoading"
+          label="Send"
+          [disabled]="this.questionForm.invalid"
+          styleClass="w-7rem bg-blue-700 border-blue-700"
+        ></p-button>
+        <p-button
+          icon="pi pi-times"
+          size="small"
+          [outlined]="true"
+          (onClick)="onCloseModal(false)"
+          label="Cancel"
+          styleClass="border-blue-700 text-blue-700"
+          pAutoFocus
+          [autofocus]="true"
+        ></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</form>

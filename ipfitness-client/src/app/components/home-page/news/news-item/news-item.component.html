@@ -1,0 +1,26 @@
+<div class="w-full p-4">
+  <div class="border-top-3 border-blue-800"></div>
+  <div class="text-blue-700 font-medium my-2">{{ newsItem.category }}</div>
+  <div class="mb-3">
+    <h4 class="m-0 text-900 font-medium text-xl line-height-3">
+      {{ newsItem.title }}
+    </h4>
+  </div>
+  <div>
+    <p class="text-700 text-base m-0 line-height-3">
+      {{ newsItem.description }}
+    </p>
+  </div>
+  <div class="flex flex-column mt-4">
+    <span class="text-600 text-base mb-1">Read full article here:</span>
+    <a
+      [pTooltip]="newsItem.link"
+      tooltipStyleClass="text-sm"
+      tooltipPosition="bottom"
+      class="m-0 p-0 text-blue-700 item-link text-sm"
+      [href]="newsItem.link"
+      target="_blank"
+      >{{ newsItem.link }}</a
+    >
+  </div>
+</div>

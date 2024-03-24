@@ -1,0 +1,111 @@
+<p-dialog
+  header="Header"
+  [(visible)]="isModalOpen"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="true"
+  [resizable]="false"
+  [showHeader]="true"
+  (onShow)="onModalOpened()"
+  [style]="{ width: '50rem' }"
+  [breakpoints]="{ '1200px': '70vw', '991px': '80vw', '575px': '90vw' }"
+>
+  <ng-template pTemplate="header"> </ng-template>
+  <ng-template pTemplate="main">
+    <div class="px-2 modal-content flex flex-column -mt-1">
+      <div
+        class="flex flex-wrap flex-column justify-content-center px-3 pb-0 w-full"
+      >
+        <p class="m-0 font-medium text-2xl white-space-nowrap text-700">
+          Program participation
+        </p>
+        <span class="text-400 text-base mt-2"
+          >Thank you for participating in this fitness program</span
+        >
+        <p-divider></p-divider>
+      </div>
+      @if(isLoading){
+      <div
+        class="flex flex-column flex-1 justify-content-center align-items-center"
+      >
+        <p-progressSpinner
+          styleClass="w-3rem h-3rem"
+          strokeWidth="3"
+          animationDuration=".5s"
+        ></p-progressSpinner>
+        <p class="text-base text-400 m-0 mt-0">Loading...</p>
+      </div>
+      } @else if(isOnline){
+      <div
+        [ngClass]="{
+          'px-3 flex flex-wrap flex-column gap-1': !isLoading,
+          hidden: isLoading
+        }"
+      >
+        <p class="m-0 mb-4 font-medium text-700">
+          Below is a list of program video content for your online participation
+          <br /><span>(exercises, demonstrations, ...)</span>
+        </p>
+        <div
+          class="flex flex-row justify-content-center flex-wrap mx-1 gap-2 pb-2"
+        >
+          @for(demonstration of programDemonstrations; track $index){
+          <div
+            class="border-round-2xl align-self-start overflow-hidden p-0 col-5 h-15rem"
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              [src]="demonstration | youTubeSafeUrl"
+              frameborder="0"
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+          }
+        </div>
+      </div>
+      } @else {
+      <div
+        class="px-3 flex flex-wrap flex-column w-full justify-content-center gap-2 mt-2"
+      >
+        <p class="m-0 text-xl font-medium text-700">
+          {{ program.ownerFirstName }} {{ program.ownerLastName }}'s fitness
+          program '{{ program.name }}' is not online
+        </p>
+        <p class="m-0 mb-4 text-base font-medium text-500">
+          So, we will see you on training in {{ programLocation }}...
+        </p>
+      </div>
+      }
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-divider></p-divider>
+    <div
+      class="flex flex-row justify-content-between w-full flex-wrap px-3 pb-2 column-gap-3 row-gap-2"
+    >
+      <p-button
+        pTooltip="Finished your training?"
+        tooltipStyleClass="text-sm"
+        tooltipPosition="top"
+        icon="pi pi-check-square"
+        label="Record your activity"
+        (onClick)="onRecordActivityClicked()"
+        class="flex-1"
+        type="submit"
+        styleClass="w-full bg-blue-700 border-blue-700"
+      ></p-button>
+
+      <p-button
+        icon="pi pi-times text-blue-700"
+        [outlined]="true"
+        (onClick)="onCloseModal(false)"
+        label="Go back to program"
+        class="flex-1"
+        styleClass="w-full border-blue-700 text-blue-700"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,144 @@
+.table-container {
+	display: flex;
+	height: 600px;
+	min-width: 950px;
+}
+
+@media screen and (max-width: 1050px) {
+	.table-container {
+		min-width: auto !important;
+		height: 450px !important;
+	}
+}
+
+.clearfix {
+	padding-top: 20px;
+	margin-top: auto !important;
+	padding-bottom: 5px;
+}
+
+.table-title i {
+	font-size: 2.15rem !important;
+	color: var(--main-color) !important;
+}
+
+.table-title h2 {
+	margin-top: 3px;
+	font-size: 1.6rem !important;
+	font-weight: 400 !important;
+}
+
+.table-title h2 > strong {
+	font-size: 1.85rem !important;
+}
+
+.search-box-container {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.search-box {
+	position: relative;
+	float: right;
+	align-self: center;
+	width: max(45%, 150px);
+}
+
+.search-box input {
+	height: 34px;
+	padding-left: 35px;
+	border-color: #ddd;
+	box-shadow: none;
+}
+
+.search-box input:focus {
+	border-color: #3FBAE4;
+}
+
+.search-box i {
+	color: #a0a5b1 !important;
+	position: absolute;
+	font-size: 20px !important;
+	top: 8px;
+	left: 10px;
+}
+
+table tbody tr > td:nth-child(3) {
+	max-width: 300px;
+	line-height: 1.1;
+	font-size: 0.95rem !important;
+}
+
+table.table td:first-child, th:first-child {
+	padding-left: 0.75rem !important;
+}
+
+table.table td:last-child {
+	padding: 0.1rem 0.25rem !important;
+	padding-right: 0.5rem !important;
+	border-left: 0;
+}
+
+table.table td:last-child > * {
+	margin-left: 0.5rem;
+}
+
+.table >tbody > * > * {
+	padding: 0.35rem 0.35rem !important;
+}
+
+table.table td a > span {
+	line-height: inherit;
+}
+
+.pagination {
+	margin-left: auto;
+}
+
+.pagination div a {
+	width: 35px !important;
+	height: 35px !important;
+	margin: 0 4px;
+	font-size: 1.05rem !important;
+	line-height: 32px !important;
+	text-align: center !important;
+	padding: 0 !important;
+}
+
+.pagination div.disabled i {
+	color: #ccc !important;
+}
+
+.active > .page-link {
+	border-color: var(--main-color) !important;
+	background-color: var(--main-color) !important;
+	color: var(--bs-white) !important;
+}
+
+.page-link {
+	color: var(--main-color) !important;
+}
+
+.pagination div a > span {
+	font-size: 1.25rem !important;
+	line-height: 35px;
+}
+
+.pagination-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: auto;
+	padding-bottom: 5px;
+	padding-top: 10px;
+}
+
+.hint-text {
+	font-size: 95%;
+	align-self: flex-end;
+}
+
+.modal-container {
+	padding: 10px 20px !important;
+}

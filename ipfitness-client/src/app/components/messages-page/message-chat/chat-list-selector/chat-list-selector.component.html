@@ -1,0 +1,76 @@
+<div
+  class="xl:w-22rem w-full card flex flex-column justify-content-center h-full p-1"
+>
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  @if(isLoading){
+  <app-chat-list-selector-skeleton
+    class="w-full h-full"
+  ></app-chat-list-selector-skeleton>
+
+  } @else if(!hasErrors) {
+  <p class="m-0 mb-2 text-700 ml-1 text-sm">Active conversations</p>
+  <div class="flex flex-row column-gap-2">
+    <form
+      (ngSubmit)="filterMessageChats()"
+      class="p-input-icon-left w-full p-input mb-2"
+    >
+      <i class="pi pi-search mx-1"></i
+      ><input
+        pInputText
+        (input)="clearMessageChatFilters()"
+        [(ngModel)]="searchText"
+        name="search"
+        type="text"
+        class="h-3rem w-full"
+        placeholder="Search by username..."
+      />
+    </form>
+  </div>
+
+  <p-listbox
+    [options]="listUsers"
+    (onChange)="onListItemChange($event)"
+    class="xl:overflow-auto flex-1 message-senders-list"
+    styleClass="w-full h-full message-senders-list"
+    [listStyle]="{ width: '100%' }"
+  >
+    <ng-template pTemplate="empty" class="w-full h-full">
+      <div class="flex flex-column gap-2 p-2 mt-1">
+        @if(searchText !== ''){
+        <p class="m-0 font-normal text-base text-600">
+          There are no fitness users to show with given name
+        </p>
+        <span
+          (click)="discoverMessageUser()"
+          class="underline cursor-pointer text-base font-medium text-500"
+          >Click here to say Hi! to
+          {{ searchText != "" ? "'" + searchText + "'" : "" }}</span
+        >
+        } @else {
+        <p class="m-0 font-medium text-base text-600">
+          Search fitness users by username to start messaging!
+        </p>
+        }
+      </div>
+    </ng-template>
+
+    <ng-template let-sender pTemplate="item" class="w-full h-full">
+      <div class="flex h-full align-items-center gap-3">
+        <p-avatar
+          size="large"
+          shape="circle"
+          [image]="sender.avatar"
+        ></p-avatar>
+        <div>
+          <p class="font-medium text-lg text-600 m-0">
+            {{ sender.username }}
+          </p>
+          <span class="text-400 text-sm m-0">
+            {{ sender.firstName }} {{ sender.lastName }}
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </p-listbox>
+  }
+</div>

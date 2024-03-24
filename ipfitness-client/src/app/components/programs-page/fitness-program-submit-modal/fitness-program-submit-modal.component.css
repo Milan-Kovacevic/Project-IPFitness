@@ -1,0 +1,14 @@
+.modal-controls {
+  height:  32rem !important;
+  overflow-y: auto;
+}
+
+.content-max-height {
+  max-height: 18rem !important;
+  overflow-y: auto;
+}
+
+.videos-table {
+  max-height: 16rem !important;
+  overflow-y: auto;
+}

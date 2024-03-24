@@ -1,0 +1,30 @@
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div
+      class="flex flex-column align-items-center p-5 surface-overlay border-round-lg"
+    >
+      <div
+        class="border-circle bg-primary-reverse inline-flex justify-content-center align-items-center h-4rem w-4rem -mt-6"
+      >
+        <i class="pi pi-question text-4xl text-blue-700"></i>
+      </div>
+      <span class="font-medium text-2xl block p-0 m-0">Are you sure?</span>
+      <p class="m-0 p-0 mt-2 text-base">Please confirm to proceed.</p>
+      <div class="flex flex-auto align-items-center gap-2 mt-5">
+        <p-button
+          label="Save"
+          size="small"
+          (onClick)="cd.accept()"
+          styleClass="w-7rem bg-blue-700 border-blue-700"
+        ></p-button>
+        <p-button
+          label="Cancel"
+          size="small"
+          [outlined]="true"
+          (onClick)="cd.reject()"
+          styleClass="w-7rem border-blue-700 text-blue-700"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

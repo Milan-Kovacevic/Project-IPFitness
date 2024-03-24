@@ -1,0 +1,138 @@
+body {
+	height: 100dvh;
+	--main-color: #3e92cc;
+}
+
+.bg-main {
+	background-color: var(--main-color) !important;
+}
+
+.border-main {
+	border-color: var(--main-color) !important;
+}
+
+.text-main {
+	color: var(--main-color) !important;
+}
+
+.background-div {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100dvh;
+	width: 100%;
+	z-index: -1;
+	opacity: 0.58;
+	background-color: #F7F7F7;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='406' height='406' viewBox='0 0 200 200'%3E%3Cg %3E%3Cpolygon fill='%23838383' points='100 57.1 64 93.1 71.5 100.6 100 72.1'/%3E%3Cpolygon fill='%23a1a1a1' points='100 57.1 100 72.1 128.6 100.6 136.1 93.1'/%3E%3Cpolygon fill='%23838383' points='100 163.2 100 178.2 170.7 107.5 170.8 92.4'/%3E%3Cpolygon fill='%23a1a1a1' points='100 163.2 29.2 92.5 29.2 107.5 100 178.2'/%3E%3Cpath fill='%23C1C1C1' d='M100 21.8L29.2 92.5l70.7 70.7l70.7-70.7L100 21.8z M100 127.9L64.6 92.5L100 57.1l35.4 35.4L100 127.9z'/%3E%3Cpolygon fill='%23006ca6' points='0 157.1 0 172.1 28.6 200.6 36.1 193.1'/%3E%3Cpolygon fill='%231983bf' points='70.7 200 70.8 192.4 63.2 200'/%3E%3Cpolygon fill='%23429BD9' points='27.8 200 63.2 200 70.7 192.5 0 121.8 0 157.2 35.3 192.5'/%3E%3Cpolygon fill='%231983bf' points='200 157.1 164 193.1 171.5 200.6 200 172.1'/%3E%3Cpolygon fill='%23006ca6' points='136.7 200 129.2 192.5 129.2 200'/%3E%3Cpolygon fill='%23429BD9' points='172.1 200 164.6 192.5 200 157.1 200 157.2 200 121.8 200 121.8 129.2 192.5 136.7 200'/%3E%3Cpolygon fill='%23006ca6' points='129.2 0 129.2 7.5 200 78.2 200 63.2 136.7 0'/%3E%3Cpolygon fill='%23429BD9' points='200 27.8 200 27.9 172.1 0 136.7 0 200 63.2 200 63.2'/%3E%3Cpolygon fill='%231983bf' points='63.2 0 0 63.2 0 78.2 70.7 7.5 70.7 0'/%3E%3Cpolygon fill='%23429BD9' points='0 63.2 63.2 0 27.8 0 0 27.8'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.main-div {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.content {
+	flex: 1 1 auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.logo {
+	font-size: 2.25rem !important;
+	padding: 2px;
+}
+
+i {
+	font-size: 1.65rem !important;
+}
+
+textarea {
+  resize: none !important;
+  font-size: 0.95rem !important;
+}
+
+.account-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: var(--bs-navbar-active-color);
+	margin: 0 0.5rem;
+}
+
+.account-card > i {
+	font-size: 2.25rem !important;
+}
+
+.account-card > p {
+	margin: 0;
+	padding: 0;
+	margin-top: -0.15rem;
+	font-size: 1.1rem !important;
+}
+
+.floating-card {
+	background-color: #fdfdfd !important;
+	border-radius: 10px;
+	box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.3);
+	padding: 2rem !important;
+	margin: auto !important;
+}
+
+.login-div {
+	max-width: 550px !important;
+	align-items: center;
+	padding: 0 5px;
+}
+
+.login-div > div {
+	margin: 2px 8px;
+}
+
+.login-div form > div {
+	max-width: 92%;
+}
+
+.login-div button {
+	min-width: 30% !important;
+}
+
+.logo-div {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	margin: 0.1rem 0;
+	margin-left: 0.25rem;
+}
+
+.logo-div > p {
+	margin: 0;
+	padding: 0;
+	font-size: 1.5rem;
+	margin-top: -0.5rem;
+}
+
+.navbar a {
+	font-size: 1.25rem;
+}
+
+.navbar a.active {
+	font-weight: 400;
+}
+
+.login-subtitle {
+	font-size: calc(1.25rem + 0.5vw) !important;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.modal-text {
+	font-size: 1.1rem;
+}

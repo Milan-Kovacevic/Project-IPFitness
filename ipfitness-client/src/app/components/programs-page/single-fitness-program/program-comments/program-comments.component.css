@@ -1,0 +1,14 @@
+.comment-list {
+  max-height: 700px !important;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .comment-box {
+    flex-basis: 40%;
+  }
+
+  .comment-list {
+    max-height: 900px !important;
+  }
+}

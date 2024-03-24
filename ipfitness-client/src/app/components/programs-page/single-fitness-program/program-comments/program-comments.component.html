@@ -1,0 +1,78 @@
+<div class="flex flex-column p pb-5 lg:pb-7 pt-3 px-4">
+  @if(isLoading){ 
+    <app-program-comments-skeleton></app-program-comments-skeleton>
+  } 
+  @else {
+  <div class="flex flex-column">
+    <span class="text-600 font-medium mb-3 mt-2 ml-2"
+      >Total comments:
+      <strong class="font-medium text-700 text-lg">{{
+        comments.length
+      }}</strong></span
+    >
+    <ul
+      class="list-none p-0 m-0 flex-1 comment-list flex flex-column row-gap-4 mb-0"
+    >
+      @for(comment of comments; track comment.commentId){
+      <li
+        class="flex flex-row column-gap-3 pb-3 border-bottom-1 surface-border"
+      >
+        <div>
+          <p-avatar
+            [image]="comment.avatar"
+            size="xlarge"
+            class="w-full block pt-4 pl-2"
+            shape="circle"
+            styleClass="border-1 border-300 image-container"
+          ></p-avatar>
+        </div>
+        <div class="flex-1">
+          <div class="text-900 font-medium text-xl my-3">
+            {{ comment.firstName }} {{ comment.lastName }}
+          </div>
+          <p class="mx-0 mt-0 mb-3 text-700 line-height-3">
+            {{ comment.content }}
+          </p>
+          <span class="text-600 font-medium"> {{ comment.datePosted }}</span>
+        </div>
+      </li>
+      }
+    </ul>
+    @if(isAccountActivated){
+    <div class="mt-6 lg:mt-7 flex flex-column row-gap-2">
+      <p class="m-0 ml-2 text-700 font-medium text-xl">Write your Comment</p>
+      <form
+        [formGroup]="commentForm"
+        (ngSubmit)="onCommentSubmit()"
+        class="mt-auto w-full flex flex-row column-gap-3"
+      >
+        <textarea
+          pInputTextarea
+          placeholder="Type something..."
+          formControlName="comment"
+          id="comment"
+          type="text"
+          name="comment"
+          rows="5"
+          class="p-inputtextarea p-inputtext p-inputtextarea-resizable overflow-auto flex-1"
+        ></textarea>
+        <p-button
+          icon="pi pi-send"
+          [rounded]="false"
+          [text]="true"
+          type="ngSubmit"
+          class="align-self-start"
+        ></p-button>
+      </form>
+    </div>
+    } @else {
+    <div class="mt-4 ml-auto flex flex-row gap-2 align-items-center">
+      <i class="pi pi-send text-600 font-medium text-lg"></i>
+      <p class="m-0 text-500 font-medium text-base">
+        Sign in to write a comment...
+      </p>
+    </div>
+    }
+  </div>
+  }
+</div>

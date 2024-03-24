@@ -1,0 +1,30 @@
+.history-items {
+  min-height: 32rem;
+  max-height: 38rem;
+  width: 49.25rem !important;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 1275px) {
+  .history-items {
+    width: 46.5rem !important;
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  .history-items {
+    width: 43.5rem !important;
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  .history-items {
+    width: 40.5rem !important;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .history-items {
+    width: auto !important;
+  }
+}

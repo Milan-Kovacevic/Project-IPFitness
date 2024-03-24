@@ -1,0 +1,113 @@
+<div class="p-3 xl:p-3 flex h-full">
+  <div
+    class="shadow-2 border-1 border-300 flex flex-column flex-auto surface-card border-round-xl overflow-hidden"
+  >
+    <div class="relative h-15rem picture-div">
+      <span
+        class="surface-card text-900 shadow-2 px-3 py-2 absolute z-1"
+        style="border-radius: 1.5rem; left: 0.875rem; top: 0.875rem"
+        >{{ program?.categoryName ?? 'Empty'}}</span
+      >
+      <div
+        style="right: 0.875rem; top: 0.875rem"
+        class="absolute flex flex-row z-2 gap-1"
+      >
+        @if(isOwner){
+        <div class="flex flex-row gap-1">
+          <button
+            pTooltip="Edit fitness program"
+            tooltipStyleClass="text-sm w-auto"
+            tooltipPosition="top"
+            pButton
+            (click)="updateFitnessProgram()"
+            icon="pi pi-pencil text-sm"
+            class="details-btn px-1 py-2 text-sm hidden transition-duration-300 text-white z-1 border-white-alpha-20 bg-black-alpha-30"
+            style="
+              backdrop-filter: blur(4px);
+              border-radius: 0.75rem;
+              width: 2.5rem;
+            "
+          ></button>
+          <button
+            pTooltip="Delete fitness program"
+            tooltipStyleClass="text-sm w-auto"
+            tooltipPosition="top"
+            pButton
+            (click)="deleteFitnessProgram()"
+            icon="pi pi-times text-sm"
+            class="details-btn px-1 py-2 text-sm hidden transition-duration-300 text-white z-1 border-white-alpha-20 bg-black-alpha-30"
+            style="
+              backdrop-filter: blur(4px);
+              border-radius: 0.75rem;
+              width: 2.5rem;
+            "
+          ></button>
+        </div>
+        }
+        <button
+          pTooltip="View Fitness program details"
+          tooltipStyleClass="text-sm w-auto"
+          tooltipPosition="top"
+          (click)="openFitnessProgramDetails()"
+          pButton
+          icon="pi pi-search text-sm"
+          class="details-btn px-1 py-2 text-sm hidden transition-duration-300 text-white z-1 border-white-alpha-20 bg-black-alpha-30"
+          style="
+            backdrop-filter: blur(4px);
+            border-radius: 0.75rem;
+            width: 2.5rem;
+          "
+        ></button>
+      </div>
+
+      <p-galleria
+        [value]="images"
+        [autoPlay]="false"
+        [circular]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="false"
+      >
+        <ng-template pTemplate="item" let-item>
+          <div class="card h-15rem w-full">
+            <img [src]="item" class="opacity-80" />
+          </div>
+        </ng-template>
+      </p-galleria>
+    </div>
+    <div class="p-4 flex flex-column flex-grow-1">
+      <div
+        class="flex column-gap-1 justify-content-between align-items-center mb-3"
+      >
+        <span class="text-900 font-medium text-lg text-overflow">{{
+          program?.name
+        }}</span
+        ><span
+          class="flex flex-row flex-wrap row-gap-1 justify-content-center align-items-center"
+          ><i class="pi pi-bolt font-medium text-lg mr-1"></i
+          ><span class="font-medium">{{ program?.difficulty }}</span></span
+        >
+      </div>
+      <ul class="list-none m-0 p-0 mb-3 mt-auto">
+        <li
+          class="px-0 py-2 flex justify-content-between align-items-center border-bottom-1 surface-border"
+        >
+          <span class="text-600 font-medium text-sm">Created By</span
+          ><span class="text-900 font-medium text-sm">{{
+            program?.createdBy
+          }}</span>
+        </li>
+        <li
+          class="px-0 py-2 flex justify-content-between align-items-center border-bottom-1 surface-border"
+        >
+          <span class="text-600 font-medium text-sm">Location</span
+          ><span class="text-900 font-medium text-sm">{{
+            program?.location
+          }}</span>
+        </li>
+      </ul>
+      <span class="text-blue-600 text-xl font-medium"
+        >${{ program?.price }}</span
+      >
+    </div>
+  </div>
+</div>

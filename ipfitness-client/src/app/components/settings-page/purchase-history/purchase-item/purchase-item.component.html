@@ -1,0 +1,59 @@
+<div class="flex flex-column sm:flex-row gap-3 justify-content-between px-2">
+  <div class="flex flex-row flex-1 gap-3">
+    <div
+      class="border-round-2xl md:block hidden md:align-self-start overflow-hidden border-2 border-300 sm:w-8rem w-full sm:h-8rem h-full"
+    >
+      <p-image
+        [src]="purchaseItem.programPicture"
+        alt="Image"
+        [preview]="true"
+        class="h-full w-full"
+        styleClass="w-full h-full image-container"
+      ></p-image>
+    </div>
+    <div class="flex-1 py-2 flex flex-column">
+      <div class="flex flex-row gap-1 align-items-center">
+        <p class="m-0 text-xl text-900 font-normal">{{ purchaseItem.name }}</p>
+        <button
+          pTooltip="View program details"
+          (click)="openProgramDetails()"
+          tooltipStyleClass="text-xs"
+          pButton
+          pRipple
+          icon="pi pi-search text-xs text-blue-700"
+          class="p-element p-ripple p-button-text p-button-plain p-button-rounded p-button p-component p-button-icon-only w-2rem h-2rem"
+        ></button>
+      </div>
+      <div class="flex flex-row gap-1 mt-0">
+        <span class="text-sm text-500">By: </span>
+        <span class="text-500 font-medium text-sm"
+          >{{ purchaseItem.ownerFirstName }}
+          {{ purchaseItem.ownerLastName }}</span
+        >
+      </div>
+      <span class="text-600 text-sm font-medium mt-2 pb-3"
+        >{{ purchaseItem.location }} | {{ purchaseItem.difficulty }}</span
+      >
+    </div>
+  </div>
+
+  <div
+    class="py-1 align-self-stretch mb-2 mr-2 flex flex-column gap-2 align-items-start sm:align-items-end"
+  >
+    <div class="flex flex-column text-right flex-1 h-full">
+      <span class="text-600 text-xs mb-1">Purchased on:</span>
+      <span class="text-900 text-sm font-medium">{{
+        purchaseItem.purchaseDate
+      }}</span>
+      <span class="text-700 text-sm font-semibold mt-2">{{
+        purchaseItem.paymentType
+      }}</span>
+    </div>
+    <div class="flex flex-row gap-1 align-items-center align-self-end">
+      <span class="text-400 text-sm font-medium">for:</span>
+      <span class="text-blue-600 text-xl font-medium"
+        >${{ purchaseItem.price }}</span
+      >
+    </div>
+  </div>
+</div>

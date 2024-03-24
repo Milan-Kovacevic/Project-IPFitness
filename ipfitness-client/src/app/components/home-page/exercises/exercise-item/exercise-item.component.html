@@ -1,0 +1,58 @@
+<div class="exercise-item shadow-3 border-round-xl m-2">
+  <div class="p-4 border-round surface-card h-full flex flex-column">
+    <div class="flex align-items-center mb-3">
+      <div class="ml-2 w-full flex flex-row align-items-center gap-3">
+        <p
+          pTooltip="Exercise Difficulty"
+          tooltipStyleClass="text-sm"
+          tooltipPosition="bottom"
+          class="m-0 font-normal text-lg text-600 capitalize"
+        >
+          {{ exercise.difficulty }}
+        </p>
+        <span class="text-300 font-medium text-lg">|</span>
+        <p
+          pTooltip="Exercise Type"
+          tooltipStyleClass="text-sm"
+          tooltipPosition="bottom"
+          class="m-0 text-lg font-normal capitalize flex align-items-center text-400"
+        >
+          {{ exercise.type }}
+        </p>
+      </div>
+    </div>
+    <div class="mb-3 flex flex-row column-gap-2 align-items-center">
+      <p-button
+        pTooltip="Read instructions"
+        tooltipStyleClass="text-sm"
+        tooltipPosition="bottom"
+        icon="pi pi-search text-sm text-0"
+        [rounded]="true"
+        [outlined]="false"
+        (onClick)="op.toggle($event)"
+        styleClass="w-2rem h-2rem border-0 ml-1 bg-blue-900"
+      ></p-button>
+      <h2 class="text-xl text-900 font-medium m-0 line-height-3">
+        {{ exercise.name }}
+      </h2>
+    </div>
+    <p-overlayPanel #op>
+      <div class="p-3 w-30rem">
+        {{ exercise.instructions }}
+      </div>
+    </p-overlayPanel>
+    <div class="flex-1 mt-1">
+      <div class="flex flex-row align-items-center">
+        <div
+          class="border-circle surface-400 mx-2 mb-2"
+          style="width: 0.3rem; height: 0.3rem"
+        ></div>
+        <span class="mb-2">Instructions:</span>
+      </div>
+
+      <p class="exercise-description m-0 pb-2 line-height-3 text-500 text-sm">
+        {{ exercise.instructions }}
+      </p>
+    </div>
+  </div>
+</div>

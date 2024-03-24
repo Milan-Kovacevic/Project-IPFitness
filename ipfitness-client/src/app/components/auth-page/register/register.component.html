@@ -1,0 +1,209 @@
+<div
+  class="flex h-full justify-content-center align-items-center overflow-auto"
+>
+  <p-toast position="top-center"></p-toast>
+  <div
+    class="bg-black-alpha-30 px-4 pt-5 pb-0 shadow-7 border-round-xl w-full md:w-8 register-form m-5 md:m-0"
+  >
+    <div class="flex-wrap flex-column text-center mb-5 pt-1">
+      <div class="text-0 text-5xl font-medium mb-1 mt-0">Register</div>
+      <span class="text-300 text-2xl font-medium line-height-3"
+        >Create New Account</span
+      >
+    </div>
+
+    <form method="get" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="mb-5 px-4 flex flex-row md:flex-column w-full column-gap-4">
+        <div class="flex-1">
+          <div
+            class="w-full flex-wrap flex justify-content-between column-gap-3 row-gap-2 mb-2"
+          >
+            <div class="flex flex-grow-1 flex-column gap-2">
+              <label for="firstName" class="block text-50 font-medium ml-1"
+                >First Name*</label
+              >
+              <input
+                pInputText
+                formControlName="firstName"
+                class="w-full surface-900 text-50"
+                id="firstName"
+                name="firstName"
+                placeholder="First Name"
+                required
+              />
+            </div>
+            <div class="flex flex-grow-1 flex-column gap-2">
+              <label for="lastName" class="block text-50 font-medium ml-1"
+                >Last Name*</label
+              >
+              <input
+                pInputText
+                formControlName="lastName"
+                class="w-full surface-900 text-50"
+                id="lastName"
+                name="lastName"
+                placeholder="Last Name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="flex flex-column gap-2 mb-2">
+            <label for="city" class="block text-50 font-medium ml-1"
+              >Residence City*</label
+            >
+            <input
+              pInputText
+              formControlName="city"
+              class="w-full surface-900 text-50"
+              id="city"
+              name="city"
+              placeholder="City Name"
+              required
+            />
+          </div>
+
+          <div class="flex flex-column gap-2 mb-2">
+            <label for="username" class="block text-50 font-medium ml-1"
+              >Username*</label
+            >
+            <input
+              pInputText
+              formControlName="username"
+              class="w-full surface-900 text-50"
+              id="username"
+              name="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+
+          <div
+            class="w-full flex-wrap flex justify-content-between column-gap-3 row-gap-2 mb-0"
+          >
+            <div class="flex flex-column flex-grow-1 gap-2">
+              <label for="password" class="block text-50 font-medium ml-1"
+                >Password*</label
+              >
+              <p-password
+                placeholder="Password"
+                formControlName="password"
+                [toggleMask]="true"
+                name="password"
+                styleClass="w-full"
+                inputStyleClass="w-full surface-900 text-50"
+              ></p-password>
+            </div>
+            <div class="flex flex-column flex-grow-1 gap-2">
+              <label for="repeatPassword" class="block text-50 font-medium ml-1"
+                >Repeat Password*</label
+              >
+              <p-password
+                placeholder="Repeat Password"
+                formControlName="repeatPassword"
+                [toggleMask]="true"
+                styleClass="w-full"
+                inputStyleClass="w-full surface-900 text-50"
+              ></p-password>
+            </div>
+          </div>
+          <div class="mb-2">
+            @if (registerForm.errors?.['passwordMissmatch'] &&
+            registerForm.controls['password'].valid &&
+            registerForm.controls['repeatPassword'].valid ) {
+            <small
+              class="text-600 font-medium ml-1 text-red-300"
+              id="username-help"
+              >Passwords do not match!</small
+            >
+            } @else {
+            <small class="text-300 ml-1" id="username-help"
+              ><strong>Note:</strong> Passwords should match!</small
+            >
+            }
+          </div>
+        </div>
+        <div class="flex-1">
+          <div class="flex flex-column gap-2 mb-2">
+            <label for="mail" class="block text-50 font-medium ml-1"
+              >E-Mail*</label
+            >
+            <input
+              pInputText
+              formControlName="mail"
+              type="email"
+              class="w-full surface-900 text-50"
+              id="mail"
+              name="mail"
+              placeholder="E-Mail"
+              required
+            />
+          </div>
+
+          <div class="flex flex-column gap-2 mb-2">
+            <label for="avatar" class="block text-50 font-medium ml-1"
+              >Profile Avatar</label
+            >
+
+            <p-fileUpload
+              mode="advanced"
+              name="avatar"
+              [fileLimit]="1"
+              [maxFileSize]="1000000"
+              [showUploadButton]="false"
+              chooseStyleClass="py-2 px-3 bg-blue-400 text-900"
+              cancelStyleClass="py-2 px-3 surface-900 text-200 border-2 border-400"
+              removeStyleClass="bg-blue-400 text-900"
+              styleClass="p-0 bg-black-alpha-30"
+              [className]="['file-upload']"
+              chooseLabel="Select Avatar"
+              accept="image/*"
+              (onSelect)="selectAvatar($event)"
+            ></p-fileUpload>
+          </div>
+
+          <div class="mt-5">
+            <div
+              [ngClass]="{
+                hidden: isSubmitting == false,
+                'flex justify-content-center align-items-center':
+                  isSubmitting == true
+              }"
+            >
+              <re-captcha
+                theme="dark"
+                (resolved)="resolveCaptcha($event)"
+                [siteKey]="captchaKey"
+              ></re-captcha>
+            </div>
+            @if(!isSubmitting){
+            <button
+              pButton
+              pRipple
+              [disabled]="registerForm.invalid || isLoading"
+              [loading]="isLoading"
+              pRipple
+              [label]="
+                isLoading ? 'Waiting for completion' : 'Register'
+              "
+              icon="pi pi-user"
+              class="w-full bg-blue-400 text-900"
+            ></button>
+            }
+
+            <div class="mt-2 flex justify-content-center align-items-center">
+              <span class="text-400 font-medium line-height-3 text-lg"
+                >Already a member?</span
+              >
+              <a
+                routerLink="/auth/login"
+                class="font-medium no-underline ml-2 text-blue-400 cursor-pointer"
+                >Login</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

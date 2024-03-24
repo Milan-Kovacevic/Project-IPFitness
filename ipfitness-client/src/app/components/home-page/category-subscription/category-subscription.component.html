@@ -1,0 +1,79 @@
+<div class="w-full flex justify-content-end pb-6 mt-1">
+  <p-overlayPanel #op [showCloseIcon]="false">
+    <ng-template pTemplate="content">
+      <div class="p-2">
+        <div class="ml-2 pb-5">
+          <h3 class="m-0 text-xl font-medium text-900">
+            Subscribe to fitness program categories
+          </h3>
+          <span class="text-500 font-medium text-sm"
+            >You will receive suggestions about new fitness programs every
+            day</span
+          >
+        </div>
+
+        <div class="flex flex-column gap-0 w-30rem category-list">
+          <div
+            class="flex flex-row justify-content-between align-items-center mb-1"
+          >
+            <p
+              class="m-0 text-blue-900 text-base font-semibold align-self-end underline ml-3"
+            >
+              Category Name
+            </p>
+
+            <p
+              class="m-0 text-blue-900 text-base font-medium align-self-end underline mr-2"
+            >
+              Status
+            </p>
+          </div>
+          <div class="w-full p-1">
+            @for(category of categories; track category.categoryId){
+            <div class="w-full p-1">
+              <div
+                class="flex flex-row justify-content-between align-items-center"
+              >
+                <p class="m-0 text-800 text-base font-medium align-self-end ml-2">
+                  {{ category.categoryName }}
+                </p>
+                @if(category.isSubscribed){
+                <p-button
+                  size="small"
+                  icon="pi pi-heart-fill"
+                  styleClass="transition-duration-300 subscribe-btn px-3 h-2rem border-round-2xl p-button text-0 border-blue-700 bg-blue-700"
+                  (onClick)="unsubscribeFromCategory(category)"
+                  label="Subscribed"
+                ></p-button>
+                } @else {
+                <p-button
+                  size="small"
+                  icon="pi pi-heart"
+                  (onClick)="subscribeToCategory(category)"
+                  styleClass="transition-duration-300 px-3 h-2rem border-round-2xl p-button-outlined text-blue-700 border-blue-700 surface-0"
+                  label="Subscribe"
+                ></p-button>
+                }
+              </div>
+              <p-divider styleClass="mt-2 mb-2"></p-divider>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-overlayPanel>
+  <div class="flex flex-column align-items-end">
+    <p-button
+      (onClick)="op.toggle($event)"
+      styleClass="surface-0 text-blue-700 border-blue-700"
+      label="Category Subscription"
+      icon="pi pi-megaphone"
+      size="small"
+    ></p-button>
+    <p class="m-0 mt-2 text-xs text-400 font-medium w-24rem text-right">
+      Subscribe to the program categories to receive notifications about new
+      programs
+    </p>
+  </div>
+</div>

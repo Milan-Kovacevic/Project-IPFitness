@@ -1,0 +1,148 @@
+<div class="p-4 flex justify-content-center navigation-page">
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  <div
+    class="surface-section mt-2 px-4 xl:px-6 pt-4 xl:pb-2 flex flex-column w-full flex-1 h-full"
+  >
+    <div
+      class="flex flex-wrap lg:flex-row flex-column row-gap-4 justify-content-between"
+    >
+      <div class="flex-1">
+        <h2 class="font-medium text-3xl text-900 mb-2 mt-0">Activities</h2>
+        <p class="text-600 text-lg mt-0 mb-0">
+          Track your progress, and record your activities
+        </p>
+      </div>
+      <p-calendar
+        pTooltip="Select month and year for activity data display"
+        tooltipPosition="bottom"
+        tooltipStyleClass="text-sm"
+        [(ngModel)]="selectedDate"
+        view="month"
+        dateFormat="MM yy"
+        [readonlyInput]="true"
+        class="align-self-end"
+        [showIcon]="true"
+        [showWeek]="true"
+        [iconDisplay]="'input'"
+        (onSelect)="onCalendarSelect()"
+      ></p-calendar>
+    </div>
+
+    <p-divider styleClass="my-4"></p-divider>
+    <div class="grid mt-1 px-3">
+      <div class="col-12 xl:col-6">
+        <div
+          class="surface-card shadow-2 border-round p-4 xl:mr-2 mr-0 xl:mb-0 mb-3"
+        >
+          <div
+            class="flex column-gap-2 justify-content-start align-items center mt-1"
+          >
+            <i class="pi pi-bolt text-xl text-blue-700"></i>
+            <p class="m-0 text-900 font-medium text-xl">
+              Monthly activity results
+            </p>
+          </div>
+
+          <div class="mt-2 p-3">
+            <p-chart
+              type="line"
+              [data]="resultChartData"
+              [options]="resultDataChartOptions"
+            ></p-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 xl:col-6">
+        <div
+          class="surface-card shadow-2 border-round p-4 xl:ml-2 ml-0 xl:mb-0 mb-3"
+        >
+          <div
+            class="flex column-gap-2 justify-content-start align-items center mt-1"
+          >
+            <i class="pi pi-bolt text-xl text-blue-700"></i>
+            <p class="m-0 text-900 font-medium text-xl">
+              Monthly exercise progression
+            </p>
+          </div>
+
+          <div class="mt-2 p-3">
+            <p-chart
+              type="bar"
+              [data]="progressChartData"
+              [options]="progressDataChartOptions"
+            ></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if(isLoadingActivities){
+    <div class="w-full my-4 pt-4">
+      <app-activity-list-skeleton class="w-full"></app-activity-list-skeleton>
+    </div>
+
+    } @else if(!isLoadingActivities && !hasErrors) {
+    <!-- Activity history -->
+    <app-activity-modal
+      [isOpen]="isModalOpen"
+      (isOpenChanged)="onIsModalOpenChanged($event)"
+      (modalSubmited)="onActivityModalSubmit($event)"
+    ></app-activity-modal>
+    <div class="mt-6 px-3 mb-3 activity-container align-self-center w-full">
+      <div
+        class="flex md:flex-row flex-column row-gap-4 justify-content-between"
+      >
+        <div
+          class="flex justify-content-center align-items-center md:align-self-end gap-3 px-2"
+        >
+          <div>
+            <h2 class="m-0 text-800 font-semibold text-2xl">
+              Activity History
+            </h2>
+            @if(!isCurrentDate) {
+            <span class="text-500 text-sm align-items-end"
+              ><strong>Note:</strong> Please select current date to add new
+              activity</span
+            >
+            }
+          </div>
+          <div>
+            @if(isCurrentDate){
+            <button
+              (click)="openActivityModal()"
+              pTooltip="Add New Activity"
+              pButton
+              pRipple
+              icon="pi pi-plus"
+              class="p-element p-ripple p-button-text p-button-plain p-button-rounded p-button p-component p-button-icon-only w-2rem h-2rem"
+            ></button>
+            }
+          </div>
+        </div>
+
+        <div class="flex flex-column px-3">
+          <p-button
+            styleClass="flex-shrink-0 text-blue-700 border-blue-700"
+            [outlined]="true"
+            label="Download your Activities"
+            (onClick)="downloadUserActivities()"
+            icon="pi pi-file-pdf"
+            class="align-self-end"
+          ></p-button>
+        </div>
+      </div>
+
+      <div class="grid my-3 w-full px-2 activity-items mt-1">
+        @for(activity of activities; track activity.activityId){
+        <app-activity-item
+          [activity]="activity"
+          class="col-12 lg:col-6 flex"
+        ></app-activity-item>
+        }
+      </div>
+    </div>
+    }
+
+    <app-footer class="mt-auto"></app-footer>
+  </div>
+</div>

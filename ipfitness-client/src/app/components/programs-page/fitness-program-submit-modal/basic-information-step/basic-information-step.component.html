@@ -1,0 +1,93 @@
+<div
+  class="flex px-3 mt-3 pb-4"
+>
+  <form
+    [formGroup]="basicInfoForm"
+    class="flex flex-row flex-wrap w-full column-gap-4 row-gap-3"
+  >
+    <div class="flex flex-column row-gap-2 flex-1">
+      <input
+        pInputText
+        formControlName="name"
+        type="text"
+        class="w-full"
+        id="name"
+        name="name"
+        placeholder="Program name"
+        required
+      />
+      <div>
+        <p-dropdown
+          [options]="locations"
+          optionLabel="displayName"
+          optionValue="key"
+          formControlName="location"
+          [showClear]="true"
+          placeholder="Select a location"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 text-900"
+        ></p-dropdown>
+      </div>
+
+      <div>
+        <p-dropdown
+          [options]="difficulties"
+          formControlName="difficulty"
+          optionLabel="displayName"
+          optionValue="key"
+          [showClear]="true"
+          placeholder="Select a difficulty"
+          styleClass="w-full"
+          class="flex-auto lg:flex-1 text-900"
+        ></p-dropdown>
+      </div>
+      <textarea
+        pInputTextarea
+        placeholder="Enter program description (optional)"
+        id="description"
+        formControlName="description"
+        type="text"
+        name="description"
+        rows="9"
+        class="p-inputtextarea p-inputtext p-inputtextarea-resizable overflow-auto"
+      ></textarea>
+      <p-inputGroup>
+        <p-inputGroupAddon>$</p-inputGroupAddon>
+        <p-inputNumber
+          inputId="minmaxfraction"
+          formControlName="price"
+          id="price"
+          name="price"
+          placeholder="Price"
+          mode="decimal"
+          [maxFractionDigits]="2"
+          [max]="1000"
+          inputStyleClass="border-noround-left"
+        >
+        </p-inputNumber>
+      </p-inputGroup>
+    </div>
+
+    <div class="flex flex-column row-gap-2 flex-1">
+      <p-calendar
+        pTooltip="Select start and finish date of a fitness program"
+        tooltipPosition="top"
+        placeholder="Select Start and Finish Date"
+        formControlName="dateRange"
+        [minDate]="minimalDate"
+        [maxDate]="maximalDate"
+        class="max-w-full h-full"
+        [showTime]="false"
+        [showSeconds]="false"
+        selectionMode="range"
+        dateFormat="yy-mm-dd"
+        [showButtonBar]="false"
+        [showIcon]="false"
+        [iconDisplay]="'input'"
+        [inline]="true"
+        [showWeek]="false"
+        [required]="true"
+      ></p-calendar>
+    </div>
+  </form>
+</div>

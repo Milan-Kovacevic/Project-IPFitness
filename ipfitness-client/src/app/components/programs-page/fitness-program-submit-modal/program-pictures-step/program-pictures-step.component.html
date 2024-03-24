@@ -1,0 +1,51 @@
+<div class="flex flex-column px-3 mt-3 pb-2">
+  <div class="flex flex-column gap-2 pb-1 h-full">
+    <p class="m-0 p-0 font-medium ml-1 mb-0 text-lg">
+      (Optionally) Upload pictures that will be displayed for this program.
+    </p>
+    <span class="text-600 font-italic ml-1 mb-2 text-sm">
+      This will be visible by all users.
+    </span>
+    <div class="picture-upload border-round-xl border-1 border-300 flex-1">
+      <p-fileUpload
+        #pictureUpload
+        mode="advanced"
+        name="pictures"
+        [fileLimit]="6"
+        [maxFileSize]="5048576"
+        [showUploadButton]="false"
+        [multiple]="true"
+        id="pictures"
+        required
+        (onSelect)="onPictureSubmit($event)"
+        (onClear)="onPictureClear($event)"
+        (onRemove)="onPictureRemove($event)"
+        chooseStyleClass="py-2 px-3"
+        cancelStyleClass="py-2 px-3 surface-50 text-blue-500"
+        styleClass="p-0 w-full flex flex-column h-full"
+        chooseLabel="Select Pictures"
+        accept="image/*"
+      ></p-fileUpload>
+    </div>
+    <div class="flex flex-row column-gap-4 align-items-center mt-1 mb-1">
+      <p class="m-0 ml-1">
+        Number of selected pictures: {{ programPuctures.length }}
+      </p>
+      @if(programPuctures.length > 0){
+      <p-button
+        icon="pi pi-times"
+        size="small"
+        [rounded]="true"
+        pTooltip="Clear All Selection"
+        (onClick)="clearManually()"
+        severity="danger"
+        [outlined]="true"
+        styleClass="p-0 h-2rem w-2rem"
+      ></p-button>
+      }
+    </div>
+    <span class="text-400 ml-1 mb-4 pb-2 text-sm">
+      <strong>Note:</strong> Maximum number of pictures on program is 6!
+    </span>
+  </div>
+</div>

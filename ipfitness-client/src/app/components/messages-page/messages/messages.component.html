@@ -1,0 +1,46 @@
+<div class="p-4 flex justify-content-center navigation-page">
+  <p-toast position="top-right" styleClass="mt-8 mr-2"></p-toast>
+  <div
+    class="surface-section px-4 xl:px-6 pt-4 xl:pt-5 xl:pb-2 flex flex-column w-full flex-1 h-full"
+    style="max-width: 1400px"
+  >
+    <div class="">
+      <h2 class="font-medium text-3xl text-900 mb-2 mt-0">Messages</h2>
+      <p class="text-600 text-base mt-0 mb-0">
+        Chat with other fitness users, or send questions to our advisors.
+      </p>
+    </div>
+    <p-divider styleClass="my-4"></p-divider>
+
+    <div class="flex flex-column xl:flex-row flex-1">
+      <ul
+        class="list-none m-0 p-0 flex flex-wrap flex-row xl:mr-5 xl:mr-3 xl:flex-column justify-content-start mb-4 gap-1 xl:mb-0"
+      >
+        <li class="w-full sm:w-auto">
+          <a
+            pRipple
+            class="no-underline p-element lg:w-15rem flex align-items-center p-3 border-round surface-200 transition-duration-150 transition-colors"
+            ><i class="pi pi-comment mr-2 ml-3 text-700"></i
+            ><span class="font-medium md:block text-800"
+              >Direct Messages</span
+            ></a
+          >
+        </li>
+        <li class="w-full sm:w-auto">
+          <a
+            pRipple
+            (click)="setModalOpen(true)"
+            class="no-underline p-ripple p-element lg:w-15rem flex align-items-center cursor-pointer p-3 border-round hover:surface-200 transition-duration-150 transition-colors"
+          >
+            <i class="pi pi-envelope mr-2 ml-3 text-600"></i
+            ><span class="font-medium d:block text-700">Contact Advisor</span>
+          </a>
+        </li>
+      </ul>
+
+      <app-message-chat class="flex-1"></app-message-chat>
+    </div>
+    <app-footer class="mt-auto"></app-footer>
+  </div>
+  <app-contact-advisor (isModalOpenChanged)="setModalOpen($event)" [isModalOpen]="isModalOpen"></app-contact-advisor>
+</div>

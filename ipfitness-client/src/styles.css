@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.navigation-page {
+  height: calc(100vh - 85px);
+}
+
+.circle-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* To fix prime ng menu selection color error */
+.p-menuitem.active {
+  background-color: var(--surface-200);
+}
+.p-menuitem-content:hover {
+  background-color: var(--surface-hover);
+}
+.p-menuitem-content {
+  background-color: transparent;
+}
+
+.file-upload > * > div {
+  background-color: var(--surface-900);
+}
+
+.picture-upload > * > * > div:nth-child(2) {
+  display: block !important;
+  flex-grow: 1;
+}
+
+.message-senders-list > div {
+  max-height: max(20rem, 100%) !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .message-senders-list > div {
+    max-height: 12rem !important;
+  }
+}
+
+.p-highlight > a {
+  border-color: var(--blue-700) !important;
+}
+
