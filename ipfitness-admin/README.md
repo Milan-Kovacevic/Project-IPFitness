@@ -15,4 +15,4 @@ On the homepage, there is a login form. If the login is successful, a page opens
 ### Application Demo
 ***Note:*** *The quality of the following video is not the best and does not provide an exact picture of the application.*
 
-![admin](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/0f29623f-6e9b-4cfc-9947-d55fcfc54abb)
+![admin](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/8953eb03-3654-4df3-8b11-2ba81f8d6607)
