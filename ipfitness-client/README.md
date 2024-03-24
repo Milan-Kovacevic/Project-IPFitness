@@ -21,12 +21,12 @@ Users are offered the option to subscribe to a specific category. Subscribed use
 ### Application Demo
 ***Note:*** *The quality of the following videos is not the best and does not provide an exact picture of the application.*
 
-![login](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/8cbd9c40-565a-43dc-8381-11ebccf97d5a)
+![login](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/15467515-a6d0-40be-9398-f4c45e4fc1c4)
 
-![first](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/076a2c3e-fdf1-490b-922d-83bc771ed3ba)
+![first](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/bca82cee-1b53-4f79-a3a0-0a8088cce0ad)
 
-![second](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/0d01b202-e18c-45a2-a72a-87b5b08781eb)
+![second](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/936256d8-f83e-4fec-9bd0-adb31bc1377e)
 
-![third](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/d3e484a9-0375-4e0d-b754-2236fcba521a)
+![third](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/2e55693b-1f1a-409c-9475-0c9e8ced9aa7)
 
-![forth](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/700028ee-a69f-4d39-9ae6-e2c932b4dc31)
+![forth](https://github.com/Milan-Kovacevic/Project-IPFitness/assets/93384395/4cd56058-e77c-4434-a551-65a40554bc1f)
